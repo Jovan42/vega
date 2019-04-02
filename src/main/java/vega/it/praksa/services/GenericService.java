@@ -1,5 +1,7 @@
 package vega.it.praksa.services;
 
+import java.util.List;
+
 public interface GenericService<T_DTO, T_COLLECTION, IDENTIFIER>  {
 
     T_COLLECTION get();
