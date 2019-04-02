@@ -1,15 +1,22 @@
 package vega.it.praksa.services.jpa;
 
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import vega.it.praksa.exceptions.NotFoundException;
 import vega.it.praksa.mappers.DtoMapper;
 import vega.it.praksa.model.TeamMember;
+import vega.it.praksa.model.UserDetailsImpl;
 import vega.it.praksa.model.dtos.TeamMemberDto;
 import vega.it.praksa.model.dtos.TeamMemberListDto;
 import vega.it.praksa.repositories.TeamMemberRepository;
 import vega.it.praksa.services.TeamMemberService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,7 +56,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             return teamMemberDto;
         }
         else
-            throw new NotFoundException("Country with id '" + id +"' is not found");
+            throw new NotFoundException("TeamMember with id '" + id +"' is not found");
     }
 
     @Override
@@ -82,5 +89,25 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         TeamMember teamMember = teamMemberRepository.save(mapper.teamMemberDtoToTeamMember(teamMemberDto));
         return mapper.teamMemberToTeamMemberDto(teamMember);
+    }
+
+    @Override
+    public Boolean login(String username, String password) {
+        TeamMember member = teamMemberRepository.getByUsername(username);
+        if (member.getPassword().equals(password)) {
+
+            UserDetailsImpl userDetails = new UserDetailsImpl(member);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
+                    userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            return true;
+        } else
+            return false;
+    }
+
+    @Override
+    public void logout() {
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

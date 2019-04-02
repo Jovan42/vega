@@ -78,4 +78,6 @@ public class WorkServiceImpl implements WorkService {
     public void delete(Long id) {
         workRepository.deleteById(id);
     }
+
+
 }
