@@ -10,7 +10,9 @@ import vega.it.praksa.model.dtos.CategoryListDto;
 import vega.it.praksa.repositories.CategoryRepository;
 import vega.it.praksa.services.CategoryService;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -25,7 +27,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryListDto get() {
-        return new CategoryListDto(categoryRepository.findAll());
+        List<CategoryDto> categories=  categoryRepository.findAll()
+                .stream()
+                .map(mapper::categoryToCategoryDto)
+                .collect(Collectors.toList());
+        return new CategoryListDto(categories);
     }
 
     @Override
