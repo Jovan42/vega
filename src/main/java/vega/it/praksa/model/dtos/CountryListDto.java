@@ -7,6 +7,6 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class ClientListDto {
-    private List<ClientDto> clients;
+public class CountryListDto {
+    private List<CountryDto> countries;
 }

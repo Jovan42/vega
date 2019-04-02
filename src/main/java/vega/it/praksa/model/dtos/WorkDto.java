@@ -13,6 +13,5 @@ public class WorkDto {
     private String description;
     private Double time;
     private Double overtime;
-    @Temporal(TemporalType.DATE)
     private Date date = new Date();
 }
