@@ -18,9 +18,6 @@ public interface DtoMapper {
     Project projectDtoToProject (ProjectDto projectDto);
     ProjectDto projectToProjectDto(Project project);
 
-    Report reportDtoToReport (ReportDto reportDto);
-    ReportDto reportToReportDto(Report report);
-
     TeamMember teamMemberDtoToTeamMember(TeamMemberDto teamMemberDto);
     TeamMemberDto teamMemberToTeamMemberDto(TeamMember teamMember);
 
