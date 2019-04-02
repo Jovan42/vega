@@ -12,6 +12,6 @@ public interface WorkRepository extends JpaRepository<Work, Long> {
     //List<WorkDto> findAllByDate_DayAndDate_MonthAndDate_Year(int day, int month, int year);
 
     @Query("select e from Work e where year(e.date) = ?1 and  month(e.date) = ?2 and day(e.date) = ?3")
-    List<Work> getAllOfCurrentMonth(int year, int month, int day );
+    List<Work> getForDay(int year, int month, int day );
 
 }

@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import vega.it.praksa.exceptions.NotFoundException;
 import vega.it.praksa.mappers.DtoMapper;
 import vega.it.praksa.model.Client;
-import vega.it.praksa.model.dtos.CategoryDto;
-import vega.it.praksa.model.dtos.CategoryListDto;
 import vega.it.praksa.model.dtos.ClientDto;
 import vega.it.praksa.model.dtos.ClientListDto;
 import vega.it.praksa.repositories.ClientRepository;
@@ -30,6 +28,24 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientListDto get() {
         List<ClientDto> clients =  clientRepository.findAll()
+                .stream()
+                .map(mapper::clientToClientDto)
+                .collect(Collectors.toList());
+        return new ClientListDto(clients);
+    }
+
+    @Override
+    public ClientListDto getByName(String name) {
+        List<ClientDto> clients =  clientRepository.findAllByName(name)
+                .stream()
+                .map(mapper::clientToClientDto)
+                .collect(Collectors.toList());
+        return new ClientListDto(clients);
+    }
+
+    @Override
+    public ClientListDto getByFirstLetter(String letter) {
+        List<ClientDto> clients =  clientRepository.findAllByNameStartsWith(letter)
                 .stream()
                 .map(mapper::clientToClientDto)
                 .collect(Collectors.toList());

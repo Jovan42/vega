@@ -1,6 +1,7 @@
 package vega.it.praksa.services.jpa;
 
 import org.springframework.stereotype.Service;
+import vega.it.praksa.exceptions.BadRequestException;
 import vega.it.praksa.exceptions.NotFoundException;
 import vega.it.praksa.mappers.DtoMapper;
 import vega.it.praksa.model.Work;
@@ -9,6 +10,7 @@ import vega.it.praksa.model.dtos.WorkListDto;
 import vega.it.praksa.repositories.WorkRepository;
 import vega.it.praksa.services.WorkService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +31,24 @@ public class WorkServiceImpl implements WorkService {
                 .stream()
                 .map(mapper::workToWorkDto)
                 .collect(Collectors.toList());
+        return new WorkListDto(works);
+    }
+
+    @Override
+    public WorkListDto getForDay(String year, String month, String day ){
+        List<String> errorMessages = new ArrayList<>();
+        if(!year.matches("\\d*"))   errorMessages.add("Wrong values for year");
+        if(!month.matches("\\d*")) errorMessages.add("Wrong values for month");
+        if(!day.matches("\\d*")) errorMessages.add("Wrong values for day");
+        if(errorMessages.size() != 0)
+              throw  new BadRequestException(errorMessages);
+
+
+        List<WorkDto> works =  workRepository.getForDay(Integer.parseInt(year), Integer.parseInt(month),
+                Integer.parseInt(day))
+                    .stream()
+                    .map(mapper::workToWorkDto)
+                    .collect(Collectors.toList());
         return new WorkListDto(works);
     }
 
