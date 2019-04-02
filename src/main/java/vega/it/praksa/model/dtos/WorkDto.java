@@ -1,20 +1,15 @@
-package vega.it.praksa.model;
+package vega.it.praksa.model.dtos;
 
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
 @Data
-public class Work {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class WorkDto {
     private Long id;
-    @ManyToOne
-    private Project project;
-    @ManyToOne
-    private Category category;
+    private ProjectDto project;
+    private CategoryDto category;
     private String description;
     private Double time;
     private Double overtime;
