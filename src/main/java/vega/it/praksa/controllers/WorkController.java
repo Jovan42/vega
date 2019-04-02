@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vega.it.praksa.exceptions.BadRequestException;
 import vega.it.praksa.model.dtos.WorkDto;
 import vega.it.praksa.model.dtos.WorkListDto;
 import vega.it.praksa.services.WorkService;
@@ -22,10 +21,9 @@ public class WorkController extends GenericCrudControllerImpl<WorkDto, WorkListD
         super(workService);
     }
 
-    @GetMapping("/forDay")
+    @GetMapping("/for-day")
     public ResponseEntity<WorkListDto> getForDay(@PathParam("year") String year, @PathParam("month") String month,
                                                  @PathParam("day") String day ) {
          return new ResponseEntity<>(service.getForDay(year, month, day), HttpStatus.OK);
-
     }
 }

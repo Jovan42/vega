@@ -86,7 +86,11 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectListDto getByClient(Long clientId) {
-        List<ProjectDto> projects=  projectRepository.findAllByClient(clientId)
+        Optional<Client> client = clientRepository.findById(clientId);
+        if(!client.isPresent()) {
+            throw new NotFoundException("Client with id '" + clientId +"' is not found");
+        }
+        List<ProjectDto> projects=  projectRepository.findAllByClient(client.get())
                 .stream()
                 .map(mapper::projectToProjectDto)
                 .collect(Collectors.toList());

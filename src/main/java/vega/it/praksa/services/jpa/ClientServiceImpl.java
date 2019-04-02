@@ -2,6 +2,7 @@ package vega.it.praksa.services.jpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vega.it.praksa.exceptions.BadRequestException;
 import vega.it.praksa.exceptions.NotFoundException;
 import vega.it.praksa.mappers.DtoMapper;
 import vega.it.praksa.model.Client;
@@ -36,6 +37,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientListDto getByName(String name) {
+        if(name == null || name.trim().equals(""))
+            throw new BadRequestException("Attribute name can not be empty");
+
         List<ClientDto> clients =  clientRepository.findAllByName(name)
                 .stream()
                 .map(mapper::clientToClientDto)
@@ -45,6 +49,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientListDto getByFirstLetter(String letter) {
+        if(letter == null || letter.trim().equals(""))
+            throw new BadRequestException("Attribute letter can not be empty");
+
         List<ClientDto> clients =  clientRepository.findAllByNameStartsWith(letter)
                 .stream()
                 .map(mapper::clientToClientDto)

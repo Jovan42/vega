@@ -73,4 +73,14 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public void delete(Long id) {
         teamMemberRepository.deleteById(id);
     }
+
+    @Override
+    public TeamMemberDto changePassword(Long id, String newPassword) {
+        TeamMemberDto teamMemberDto = get(id);
+        teamMemberDto.setPassword(newPassword);
+        //teamMemberDto.setPassword(passwordEncoder.encode(newPassword));
+
+        TeamMember teamMember = teamMemberRepository.save(mapper.teamMemberDtoToTeamMember(teamMemberDto));
+        return mapper.teamMemberToTeamMemberDto(teamMember);
+    }
 }
