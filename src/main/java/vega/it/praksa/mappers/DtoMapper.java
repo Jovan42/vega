@@ -23,7 +23,4 @@ public interface DtoMapper {
 
     TeamMember teamMemberDtoToTeamMember(TeamMemberDto teamMemberDto);
     TeamMemberDto teamMemberToTeamMemberDto(TeamMember teamMember);
-
-    Work workDtoToWork (WorkDto workDto);
-    WorkDto workToWorkDto(Work work);
 }
