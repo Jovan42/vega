@@ -24,10 +24,9 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("WORKER" ));
-        if(teamMember.getRole().equals(Role.ADMIN))
+        if(teamMember.getRole() != null && teamMember.getRole().equals(Role.ADMIN))
             authorities.add(new SimpleGrantedAuthority("ADMIN"));
 
         return authorities;
