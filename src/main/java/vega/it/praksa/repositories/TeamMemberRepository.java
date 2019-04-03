@@ -5,5 +5,5 @@ import vega.it.praksa.model.TeamMember;
 
 public interface TeamMemberRepository extends JpaRepository<TeamMember, Long> {
     TeamMember getByUsername(String username);
-    //TODO export all data
+
 }

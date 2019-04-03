@@ -11,6 +11,7 @@ import vega.it.praksa.repositories.WorkRepository;
 import vega.it.praksa.services.WorkService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -49,6 +50,28 @@ public class WorkServiceImpl implements WorkService {
                     .stream()
                     .map(mapper::workToWorkDto)
                     .collect(Collectors.toList());
+        return new WorkListDto(works);
+    }
+
+    @Override
+    public WorkListDto search(String category, String project, String client, String lead, Date startDate, Date endDate) {
+        Long dCategory, dProject, dClient, dLead;
+        if(category == null) dCategory = null;
+        else dCategory = Long.parseLong(category);
+
+        if(project == null) dProject = null;
+        else dProject = Long.parseLong(project);
+
+        if(client == null) dClient = null;
+        else dClient = Long.parseLong(client);
+
+        if(lead == null) dLead = null;
+        else dLead = Long.parseLong(lead);
+
+        List<WorkDto> works =  workRepository.search(dCategory, dProject, dClient, dLead, startDate, endDate)
+                .stream()
+                .map(mapper::workToWorkDto)
+                .collect(Collectors.toList());
         return new WorkListDto(works);
     }
 

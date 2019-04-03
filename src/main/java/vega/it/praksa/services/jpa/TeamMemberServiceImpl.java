@@ -21,9 +21,7 @@ import vega.it.praksa.services.TeamMemberService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-//TODO password encryption
 @Service
-@Slf4j
 public class TeamMemberServiceImpl implements TeamMemberService {
     private TeamMemberRepository teamMemberRepository;
     private DtoMapper mapper;
@@ -94,8 +92,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Override
     public TeamMember get(String username) {
-        //TODO Not found
-        return teamMemberRepository.getByUsername(username);
+        TeamMember teamMember = teamMemberRepository.getByUsername(username);
+        if(teamMember != null)
+            return teamMember;
+        else throw new NotFoundException("TeamMember with username: '" + username + "' is not found");
     }
 
     @Override

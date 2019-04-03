@@ -3,6 +3,7 @@ package vega.it.praksa.model.dtos;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class ClientDto {
@@ -15,5 +16,6 @@ public class ClientDto {
     private String city;
     @NotBlank
     private String zipCode;
+    @NotNull
     private CountryDto country;
 }

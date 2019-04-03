@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class ProjectDto {
@@ -12,7 +13,9 @@ public class ProjectDto {
     private String name;
     @NotBlank
     private String description;
+    @NotNull
     private ClientDto client;
+    @NotNull
     private TeamMemberDto lead;
 
 }
