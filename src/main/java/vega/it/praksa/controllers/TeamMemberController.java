@@ -26,7 +26,7 @@ public class TeamMemberController extends GenericCrudControllerImpl<TeamMemberDt
         return new ResponseEntity<>(service.login(teamMember.getUsername(), teamMember.getPassword()), HttpStatus.OK);
     }
 
-    @PostMapping("logout")
+    @PostMapping("/logout")
     ResponseEntity<Void> logout(){
         service.logout();
         return new ResponseEntity<>(HttpStatus.OK);

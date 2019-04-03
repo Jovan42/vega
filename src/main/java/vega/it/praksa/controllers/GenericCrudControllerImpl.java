@@ -1,6 +1,5 @@
 package vega.it.praksa.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -14,7 +13,6 @@ public class GenericCrudControllerImpl<T_DTO , T_COLLECTION, IDENTIFIER, SERVICE
 
     SERVICE service;
 
-    @Autowired
     public GenericCrudControllerImpl(SERVICE service) {
         this.service = service;
     }
