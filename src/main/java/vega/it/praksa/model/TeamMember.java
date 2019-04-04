@@ -20,6 +20,7 @@ public class TeamMember {
     private String name;
     @Column(nullable = false)
     private Double hoursPerWeek;
+    private String email;
     @Column(nullable = false)
     private Role role;
     @Column(nullable = false)

@@ -16,12 +16,13 @@ public class TeamMemberDto {
     private Long id;
     @NotBlank
     private String username;
-    @NotBlank
     private String password;
     @NotBlank
     private String name;
-    @NotBlank
+    @NotNull
     private Double hoursPerWeek;
+    @NotBlank
+    private String email;
     @NotNull
     private Role role;
     @NotNull
