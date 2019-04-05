@@ -117,4 +117,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public void logout() {
         SecurityContextHolder.getContext().setAuthentication(null);
     }
+
+    @Override
+    public String getLoggedIn() {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+
+    }
 }

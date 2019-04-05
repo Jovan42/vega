@@ -9,4 +9,5 @@ public interface TeamMemberService extends GenericService<TeamMemberDto, TeamMem
     TeamMember get(String username);
     Boolean login(String username, String password);
     void logout();
+    String getLoggedIn();
 }

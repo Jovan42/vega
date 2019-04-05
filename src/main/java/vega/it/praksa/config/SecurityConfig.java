@@ -18,7 +18,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2_console/**").permitAll();
 
         http.csrf().disable();
-        http.headers().frameOptions().disable();
     }
 
     @Bean
