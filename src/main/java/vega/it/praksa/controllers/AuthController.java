@@ -17,20 +17,20 @@ public class AuthController {
     }
 
 
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     ResponseEntity<LoginDto> login(@RequestBody TeamMember teamMember) {
         LoginDto loginDto = new LoginDto(teamMember.getUsername(),
                 teamMemberService.login(teamMember.getUsername(), teamMember.getPassword()));
                 return new ResponseEntity<>(loginDto, HttpStatus.OK);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/logout")
     ResponseEntity<Void> logout(){
         teamMemberService.logout();
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/loggedIn")
     ResponseEntity<LoginDto> loggedIn (){
         return new ResponseEntity<>(new LoginDto(teamMemberService.getLoggedIn(), true), HttpStatus.OK);
