@@ -40,7 +40,7 @@ public class ClientServiceImpl implements ClientService {
         if(name == null || name.trim().equals(""))
             throw new BadRequestException("Attribute name can not be empty");
 
-        List<ClientDto> clients =  clientRepository.findAllByNameLike(name)
+        List<ClientDto> clients =  clientRepository.findAllByNameContaining(name)
                 .stream()
                 .map(mapper::clientToClientDto)
                 .collect(Collectors.toList());

@@ -6,6 +6,6 @@ import vega.it.praksa.model.Client;
 import java.util.List;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    List<Client> findAllByNameLike(String name);
+    List<Client> findAllByNameContaining(String name);
     List<Client> findAllByNameStartsWith(String letter);
 }

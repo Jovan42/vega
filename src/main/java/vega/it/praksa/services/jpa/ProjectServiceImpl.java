@@ -67,7 +67,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectListDto getByName(String name) {
-        List<ProjectDto> projects=  projectRepository.findAllByName(name)
+        List<ProjectDto> projects=  projectRepository.findAllByNameContaining(name)
                 .stream()
                 .map(mapper::projectToProjectDto)
                 .collect(Collectors.toList());
