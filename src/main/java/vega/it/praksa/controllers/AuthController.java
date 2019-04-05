@@ -32,8 +32,8 @@ public class AuthController {
     }
 
     @GetMapping("/loggedIn")
-    ResponseEntity<String> loggedIn (){
-        return new ResponseEntity<>(teamMemberService.getLoggedIn(), HttpStatus.OK);
+    ResponseEntity<LoginDto> loggedIn (){
+        return new ResponseEntity<>(new LoginDto(teamMemberService.getLoggedIn(), true), HttpStatus.OK);
 
     }
 }
