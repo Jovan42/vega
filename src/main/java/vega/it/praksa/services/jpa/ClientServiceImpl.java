@@ -52,7 +52,8 @@ public class ClientServiceImpl implements ClientService {
         if(letter == null || letter.trim().equals(""))
             throw new BadRequestException("Attribute letter can not be empty");
 
-        List<ClientDto> clients =  clientRepository.findAllByNameStartsWith(letter)
+        List<ClientDto> clients =  clientRepository.findAllByNameStartsWithOrNameStartsWith(letter.toUpperCase(),
+                letter.toLowerCase())
                 .stream()
                 .map(mapper::clientToClientDto)
                 .collect(Collectors.toList());

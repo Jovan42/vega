@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
     List<Client> findAllByNameContaining(String name);
-    List<Client> findAllByNameStartsWith(String letter);
+    List<Client> findAllByNameStartsWithOrNameStartsWith(String upperLetter, String lowerLetter);
 }

@@ -76,7 +76,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectListDto getByFirstLetter(String letter) {
-        List<ProjectDto> projects=  projectRepository.findAllByNameStartsWith(letter)
+        List<ProjectDto> projects=  projectRepository.findAllByNameStartsWithOrNameStartsWith(letter.toUpperCase(),
+                letter.toLowerCase())
                 .stream()
                 .map(mapper::projectToProjectDto)
                 .collect(Collectors.toList());

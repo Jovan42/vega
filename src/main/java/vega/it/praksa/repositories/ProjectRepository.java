@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<Project> findAllByNameContaining(String name);
-    List<Project> findAllByNameStartsWith(String letter);
+    List<Project> findAllByNameStartsWithOrNameStartsWith(String upperLetter, String lowerLetter);
     List<Project> findAllByClient(Client client);
 }
