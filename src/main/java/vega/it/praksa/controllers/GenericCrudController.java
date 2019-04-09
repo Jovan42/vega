@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 public interface GenericCrudController<T_DTO, T_COLLECTION, IDENTIFIER> {
-    @GetMapping("")
+    @GetMapping(path="", produces = "application/json")
     ResponseEntity<T_COLLECTION> get();
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", produces = "application/json" )
     ResponseEntity<T_DTO> get(@PathVariable  IDENTIFIER id);
 
     @PostMapping("")

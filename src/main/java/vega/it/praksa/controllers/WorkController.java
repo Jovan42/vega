@@ -37,9 +37,9 @@ public class WorkController extends GenericCrudControllerImpl<WorkDto, WorkListD
                                                 @PathParam("client") String client,
                                                 @PathParam("teamMember") String lead,
                                                 @PathParam("startDate")
-                                                    @DateTimeFormat(pattern = "yyyy-mm-dd") Date startDate,
+                                                    @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                 @PathParam("endDate")
-                                                    @DateTimeFormat(pattern = "yyyy-mm-dd") Date endDate){
+                                                    @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
 
         return new ResponseEntity<>(service.search(category, project, client, lead, startDate, endDate), HttpStatus.OK);
     }

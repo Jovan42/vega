@@ -1,13 +1,17 @@
 package vega.it.praksa.model;
 
-import lombok.Data;
+import lombok.*;
 import vega.it.praksa.model.enums.Role;
 import vega.it.praksa.model.enums.Status;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
 public class TeamMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

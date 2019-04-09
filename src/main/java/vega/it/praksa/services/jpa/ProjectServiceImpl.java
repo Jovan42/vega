@@ -31,20 +31,17 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectListDto get() {
-        List<ProjectDto> projects=  projectRepository.findAll()
+        return new ProjectListDto(projectRepository.findAll()
                 .stream()
                 .map(mapper::projectToProjectDto)
-                .collect(Collectors.toList());
-        return new ProjectListDto(projects);
+                .collect(Collectors.toList()));
     }
 
     @Override
     public ProjectDto get(Long id) {
-        Optional<Project> project = projectRepository.findById(id);
-        if(project.isPresent())
-            return mapper.projectToProjectDto(project.get());
-        else
-            throw new NotFoundException("Country with id '" + id +"' is not found");
+        return projectRepository.findById(id)
+                .map(mapper::projectToProjectDto)
+                .orElseThrow(()-> new NotFoundException("Country with id '" + id +"' is not found"));
     }
 
     @Override
