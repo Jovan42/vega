@@ -51,23 +51,23 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
+    //TODO preko lambda izraza
     public TeamMemberDto get(Long id) {
-        Optional<TeamMember> teamMember = teamMemberRepository.findById(id);
-        if(teamMember.isPresent()) {
-            TeamMemberDto teamMemberDto = mapper.teamMemberToTeamMemberDto(teamMember.get());
-            teamMemberDto.setPassword("");
-            return teamMemberDto;
-        }
-        else
-            throw new NotFoundException("TeamMember with id '" + id +"' is not found");
+        TeamMemberDto teamMember = teamMemberRepository.findById(id)
+                .map(mapper::teamMemberToTeamMemberDto)
+                .orElseThrow(()-> new NotFoundException("Team member with id '" + id +"' is not found"));
+
+        teamMember.setPassword("");
+        return teamMember;
     }
 
     @Override
     public TeamMemberDto add(TeamMemberDto teamMemberDto) {
         teamMemberDto.setId(null);
         teamMemberDto.setPassword(passwordEncoder.encode(teamMemberDto.getPassword()));
-        TeamMember teamMember = teamMemberRepository.save(mapper.teamMemberDtoToTeamMember(teamMemberDto));
-        return mapper.teamMemberToTeamMemberDto(teamMember);
+        return mapper.teamMemberToTeamMemberDto(teamMemberRepository.save(
+                mapper.teamMemberDtoToTeamMember(teamMemberDto))
+        );
 
     }
 
@@ -75,8 +75,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public TeamMemberDto update(TeamMemberDto teamMemberDto) {
         String oldPassword = get(teamMemberDto.getId()).getPassword();
         teamMemberDto.setPassword(oldPassword);
-        TeamMember teamMember = teamMemberRepository.save(mapper.teamMemberDtoToTeamMember(teamMemberDto));
-        return mapper.teamMemberToTeamMemberDto(teamMember);
+        return mapper.teamMemberToTeamMemberDto(teamMemberRepository.save(
+                mapper.teamMemberDtoToTeamMember(teamMemberDto))
+        );
     }
 
     @Override
@@ -89,24 +90,30 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         TeamMemberDto teamMemberDto = get(id);
         teamMemberDto.setPassword(passwordEncoder.encode(newPassword));
 
-        TeamMember teamMember = teamMemberRepository.save(mapper.teamMemberDtoToTeamMember(teamMemberDto));
-        return mapper.teamMemberToTeamMemberDto(teamMember);
+        return mapper.teamMemberToTeamMemberDto(teamMemberRepository.save(
+                mapper.teamMemberDtoToTeamMember(teamMemberDto))
+        );
     }
 
     @Override
-    public TeamMember get(String username) {
-        TeamMember teamMember = teamMemberRepository.getByUsername(username);
-        if(teamMember != null)
-            return teamMember;
-        else throw new NotFoundException("TeamMember with username: '" + username + "' is not found");
+    public TeamMemberDto get(String username) {
+        TeamMemberDto teamMember = teamMemberRepository.getByUsername(username)
+                .map(mapper::teamMemberToTeamMemberDto)
+                .orElseThrow(()-> new NotFoundException("Team member with usernanme '" + username +"' is not found"));
+
+        teamMember.setPassword("");
+        return teamMember;
     }
 
     @Override
     public Boolean login(String username, String password) {
-        TeamMember member = teamMemberRepository.getByUsername(username);
-        if (passwordEncoder.matches(password, member.getPassword())) {
+        TeamMemberDto teamMember = teamMemberRepository.getByUsername(username)
+                .map(mapper::teamMemberToTeamMemberDto)
+                .orElseThrow(()-> new NotFoundException("Team member with usernanme '" + username +"' is not found"));
 
-            UserDetailsImpl userDetails = new UserDetailsImpl(member);
+
+        if (passwordEncoder.matches(password, teamMember.getPassword())) {
+            UserDetailsImpl userDetails = new UserDetailsImpl(mapper.teamMemberDtoToTeamMember(teamMember));
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
                     userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -123,8 +130,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     @Override
     public String getLoggedIn() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-       //if(auth.getName().equals("anonymousUser")) return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-
         return  auth.getName();
 
     }

@@ -77,24 +77,24 @@ public class WorkServiceImpl implements WorkService {
 
     @Override
     public WorkDto get(Long id) {
-        Optional<Work> work = workRepository.findById(id);
-        if(work.isPresent())
-            return mapper.workToWorkDto(work.get());
-        else
-            throw new NotFoundException("Work with id '" + id +"' is not found");
+        return workRepository.findById(id)
+                .map(mapper::workToWorkDto)
+                .orElseThrow(()-> new NotFoundException("Work with id '" + id +"' is not found"));
     }
 
     @Override
     public WorkDto add(WorkDto workDto) {
         workDto.setId(null);
-        Work work = workRepository.save(mapper.workDtoToWork(workDto));
-        return mapper.workToWorkDto(work);
+        return mapper.workToWorkDto(
+                workRepository.save(mapper.workDtoToWork(workDto))
+        );
     }
 
     @Override
     public WorkDto update(WorkDto workDto) {
-        Work work = workRepository.save(mapper.workDtoToWork(workDto));
-        return mapper.workToWorkDto(work);
+        return mapper.workToWorkDto(
+                workRepository.save(mapper.workDtoToWork(workDto))
+        );
     }
 
     @Override

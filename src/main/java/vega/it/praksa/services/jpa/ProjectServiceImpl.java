@@ -47,14 +47,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDto add(ProjectDto projectDto) {
         projectDto.setId(null);
-        Project project = projectRepository.save(mapper.projectDtoToProject(projectDto));
-        return mapper.projectToProjectDto(project);
+        return mapper.projectToProjectDto(
+                projectRepository.save(mapper.projectDtoToProject(projectDto))
+        );
     }
 
     @Override
     public ProjectDto update(ProjectDto projectDto) {
-        Project project = projectRepository.save(mapper.projectDtoToProject(projectDto));
-        return mapper.projectToProjectDto(project);
+        return mapper.projectToProjectDto(
+                projectRepository.save(mapper.projectDtoToProject(projectDto))
+        );
     }
 
     @Override

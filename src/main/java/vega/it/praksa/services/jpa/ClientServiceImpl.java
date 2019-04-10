@@ -62,24 +62,24 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto get(Long id) {
-        Optional<Client> client = clientRepository.findById(id);
-        if(client.isPresent())
-            return mapper.clientToClientDto(client.get());
-        else
-            throw new NotFoundException("Client with id '" + id +"' is not found");
+        return clientRepository.findById(id)
+                .map(mapper::clientToClientDto)
+                .orElseThrow(()-> new NotFoundException("Client with id '" + id +"' is not found"));
     }
 
     @Override
     public ClientDto add(ClientDto clientDto) {
         clientDto.setId(null);
-        Client client = clientRepository.save(mapper.clientDtoToClient(clientDto));
-        return mapper.clientToClientDto(client);
+        return mapper.clientToClientDto(
+                clientRepository.save(mapper.clientDtoToClient(clientDto))
+        );
     }
 
     @Override
     public ClientDto update(ClientDto clientDto) {
-        Client client = clientRepository.save(mapper.clientDtoToClient(clientDto));
-        return mapper.clientToClientDto(client);
+        return mapper.clientToClientDto(
+                clientRepository.save(mapper.clientDtoToClient(clientDto))
+        );
     }
 
     @Override

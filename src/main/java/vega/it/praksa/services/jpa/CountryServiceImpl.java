@@ -34,24 +34,24 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryDto get(Long id) {
-        Optional<Country> country = countryRepository.findById(id);
-        if(country.isPresent())
-            return mapper.countryToCountryDto(country.get());
-        else
-            throw new NotFoundException("Country with id '" + id +"' is not found");
+        return countryRepository.findById(id)
+                .map(mapper::countryToCountryDto)
+                .orElseThrow(()-> new NotFoundException("Country with id '" + id +"' is not found"));
     }
 
     @Override
     public CountryDto add(CountryDto countryDto) {
         countryDto.setId(null);
-        Country country = countryRepository.save(mapper.countryDtoToCountry(countryDto));
-        return mapper.countryToCountryDto(country);
-}
+        return mapper.countryToCountryDto(
+                countryRepository.save(mapper.countryDtoToCountry(countryDto))
+        );
+    }
 
     @Override
     public CountryDto update(CountryDto countryDto) {
-        Country country = countryRepository.save(mapper.countryDtoToCountry(countryDto));
-        return mapper.countryToCountryDto(country);
+        return mapper.countryToCountryDto(
+            countryRepository.save(mapper.countryDtoToCountry(countryDto))
+        );
     }
 
     @Override

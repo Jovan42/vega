@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PraksaApplication {
+public class TimeStampApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PraksaApplication.class, args);
+        SpringApplication.run(TimeStampApplication.class, args);
     }
 
 }
