@@ -50,10 +50,8 @@ public class ProjectTest {
         mockMvc.perform(get("http://localhost:8080/api/projects")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
-
 
     @Test
     public void findById() throws Exception {
@@ -61,7 +59,6 @@ public class ProjectTest {
         mockMvc.perform(get("http://localhost:8080/api/projects/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -71,7 +68,6 @@ public class ProjectTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"client\":{\"id\":1},\"lead\":{\"id\":1}}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -81,11 +77,25 @@ public class ProjectTest {
         mockMvc.perform(put("http://localhost:8080/api/projects")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":2,\"name\":\"editC\",\"description\":\"c\",\"client\":{\"id\":1},\"lead\":{\"id\":1}}")
-
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
+    @Test
+    public void findByName() throws Exception {
+        mockMvc.perform(get("http://localhost:8080/api/projects/by-name?name=a")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void findByFirstLetter() throws Exception {
+        mockMvc.perform(get("http://localhost:8080/api/projects/first-letter?letter=a")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+
     //TODO pitaj
     //@Test
     public void remove() throws Exception {

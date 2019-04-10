@@ -59,7 +59,6 @@ public class CategoryTest {
         mockMvc.perform(get("http://localhost:8080/api/categories")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -71,7 +70,6 @@ public class CategoryTest {
         mockMvc.perform(get("http://localhost:8080/api/categories/" + c.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -81,7 +79,6 @@ public class CategoryTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":2,\"name\":\"c\"}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -92,9 +89,7 @@ public class CategoryTest {
         mockMvc.perform(put("http://localhost:8080/api/categories")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":"+ c.getId() +",\"name\":\"edit\"}")
-
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
     //TODO pitaj

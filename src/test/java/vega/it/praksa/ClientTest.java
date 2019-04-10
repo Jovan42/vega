@@ -56,7 +56,20 @@ public class ClientTest {
         mockMvc.perform(get("http://localhost:8080/api/clients/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void findByName() throws Exception {
+        mockMvc.perform(get("http://localhost:8080/api/clients/by-name?name=a")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+    @Test
+    public void findByFirstLetter() throws Exception {
+        mockMvc.perform(get("http://localhost:8080/api/clients/first-letter?letter=a")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -67,7 +80,6 @@ public class ClientTest {
                 .content("{\"id\":3,\"name\":\"c\",\"address\":\"c\",\"city\":\"c\",\"zipCode\":\"c\"," +
                         "\"country\":{\"id\":1}}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 

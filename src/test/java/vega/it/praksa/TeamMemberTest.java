@@ -53,7 +53,6 @@ public class TeamMemberTest {
         mockMvc.perform(get("http://localhost:8080/api/team-members/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -65,7 +64,6 @@ public class TeamMemberTest {
                         "\"\",\"name\":\"a\",\"hoursPerWeek\":40.0,\"email\":\"a\",\"role\":\"ADMIN\",\"status\":\"" +
                         "ACTIVE\"}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -77,7 +75,6 @@ public class TeamMemberTest {
                         "\"\",\"name\":\"a\",\"hoursPerWeek\":40.0,\"email\":\"a\",\"role\":\"ADMIN\",\"status\":\"" +
                         "ACTIVE\"}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
     //TODO pitaj

@@ -61,7 +61,6 @@ public class WorkTest {
         mockMvc.perform(get("http://localhost:8080/api/works")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -72,7 +71,23 @@ public class WorkTest {
         mockMvc.perform(get("http://localhost:8080/api/works/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void findForDay() throws Exception {
+
+        mockMvc.perform(get("http://localhost:8080/api/works/for-day?year=2019&month=4&day=10")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void search() throws Exception {
+        mockMvc.perform(get("http://localhost:8080/api/works/search?")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -83,7 +98,6 @@ public class WorkTest {
                 .content("{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,\"overtime\": 20,\"project\":" +
                         "{\"id\":1},\"category\":{\"id\":1}}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -95,7 +109,6 @@ public class WorkTest {
                 .content("{\"id\":2,\"name\":\"cEdit\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,\"overtime\": 20,\"project\":" +
                         "{\"id\":1},\"category\":{\"id\":1}}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
     //TODO pitaj

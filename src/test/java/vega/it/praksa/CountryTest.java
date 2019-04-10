@@ -49,7 +49,6 @@ public class CountryTest {
         mockMvc.perform(get("http://localhost:8080/api/countries/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -59,7 +58,6 @@ public class CountryTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":3,\"name\":\"c\"}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
@@ -69,7 +67,6 @@ public class CountryTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":3,\"name\":\"editC\"}")
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
     //TODO pitaj
