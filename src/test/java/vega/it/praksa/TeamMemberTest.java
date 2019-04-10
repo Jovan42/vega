@@ -23,13 +23,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-
 public class TeamMemberTest {
-    @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    TeamMemberRepository teamMemberRepository;
+    private TeamMemberRepository teamMemberRepository;
 
     @Before
     public void setUp() {
@@ -91,6 +87,13 @@ public class TeamMemberTest {
                 .andExpect(status().isOk());
     }
 
+    @Autowired
+    public void setMockMvc(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
 
-
+    @Autowired
+    public void setTeamMemberRepository(TeamMemberRepository teamMemberRepository) {
+        this.teamMemberRepository = teamMemberRepository;
+    }
 }

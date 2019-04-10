@@ -25,11 +25,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CategoryTest {
-    @Autowired
     private MockMvc mockMvc;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    public void setMockMvc(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
+
+    @Autowired
+    public void setCategoryRepository(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+    @Autowired
+    public CategoryRepository getCategoryRepository() {
+        return categoryRepository;
+    }
 
     @Before
     public void setUp() {

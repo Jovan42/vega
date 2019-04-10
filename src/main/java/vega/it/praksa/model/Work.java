@@ -1,12 +1,15 @@
 package vega.it.praksa.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Work {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

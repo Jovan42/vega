@@ -25,14 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ClientTest {
-    @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    ClientRepository clientRepository;
-    @Autowired
-    CountryRepository countryRepository;
-
+    private ClientRepository clientRepository;
+    private CountryRepository countryRepository;
 
     @Before
     public void setUp() {
@@ -93,6 +88,16 @@ public class ClientTest {
                 .andExpect(status().isOk());
     }
 
-
-
+    @Autowired
+    public void setMockMvc(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
+    @Autowired
+    public void setClientRepository(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
+    }
+    @Autowired
+    public void setCountryRepository(CountryRepository countryRepository) {
+        this.countryRepository = countryRepository;
+    }
 }
