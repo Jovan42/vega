@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class TeamMemberListDto {
-    private List<TeamMemberDto> teamMembers;
+    private List<TeamMemberOutputDto> teamMembers;
 }

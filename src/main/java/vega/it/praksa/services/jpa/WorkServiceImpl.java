@@ -6,6 +6,7 @@ import vega.it.praksa.exceptions.NotFoundException;
 import vega.it.praksa.mappers.DtoMapper;
 import vega.it.praksa.model.Work;
 import vega.it.praksa.model.dtos.WorkDto;
+import vega.it.praksa.model.dtos.WorkInputDto;
 import vega.it.praksa.model.dtos.WorkListDto;
 import vega.it.praksa.repositories.WorkRepository;
 import vega.it.praksa.services.WorkService;
@@ -83,17 +84,17 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
-    public WorkDto add(WorkDto workDto) {
+    public WorkDto add(WorkInputDto workDto) {
         workDto.setId(null);
         return mapper.workToWorkDto(
-                workRepository.save(mapper.workDtoToWork(workDto))
+                workRepository.save(mapper.workInputDtotoWork(workDto))
         );
     }
 
     @Override
-    public WorkDto update(WorkDto workDto) {
+    public WorkDto update(WorkInputDto workDto) {
         return mapper.workToWorkDto(
-                workRepository.save(mapper.workDtoToWork(workDto))
+                workRepository.save(mapper.workInputDtotoWork(workDto))
         );
     }
 

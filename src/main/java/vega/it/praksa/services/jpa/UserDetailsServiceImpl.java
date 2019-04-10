@@ -1,6 +1,5 @@
 package vega.it.praksa.services.jpa;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,7 +8,6 @@ import vega.it.praksa.exceptions.NotFoundException;
 import vega.it.praksa.mappers.DtoMapper;
 import vega.it.praksa.model.TeamMember;
 import vega.it.praksa.model.UserDetailsImpl;
-import vega.it.praksa.model.dtos.TeamMemberDto;
 import vega.it.praksa.repositories.TeamMemberRepository;
 
 
@@ -25,11 +23,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        TeamMemberDto teamMember = teamMemberRepository.getByUsername(username)
-                .map(mapper::teamMemberToTeamMemberDto)
+        TeamMember teamMember = teamMemberRepository.getByUsername(username)
                 .orElseThrow(()-> new NotFoundException("Team member with usernanme '" + username +"' is not found"));
 
-        UserDetailsImpl userDetail = new UserDetailsImpl(mapper.teamMemberDtoToTeamMember(teamMember));
+        UserDetailsImpl userDetail = new UserDetailsImpl(teamMember);
         return userDetail;
     }
 }

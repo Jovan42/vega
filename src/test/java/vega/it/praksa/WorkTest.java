@@ -95,8 +95,8 @@ public class WorkTest {
     public void add() throws Exception {
         mockMvc.perform(post("http://localhost:8080/api/works")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,\"overtime\": 20,\"project\":" +
-                        "{\"id\":1},\"category\":{\"id\":1}}")
+                .content("{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,\"" +
+                        "overtime\": 20,\"project\":1,\"category\":1}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -106,8 +106,8 @@ public class WorkTest {
 
         mockMvc.perform(put("http://localhost:8080/api/works")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":2,\"name\":\"cEdit\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,\"overtime\": 20,\"project\":" +
-                        "{\"id\":1},\"category\":{\"id\":1}}")
+                .content("{\"id\":2,\"name\":\"cEdit\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40," +
+                        "\"overtime\": 20,\"project\":1,\"category\":1}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

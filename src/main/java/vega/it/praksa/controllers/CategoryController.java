@@ -9,7 +9,8 @@ import vega.it.praksa.services.CategoryService;
 
 @RestController
 @RequestMapping("/api/categories")
-public class CategoryController extends GenericCrudControllerImpl<CategoryDto, CategoryListDto, Long, CategoryService> {
+public class CategoryController extends GenericCrudControllerImpl<CategoryDto, CategoryDto,CategoryListDto, Long,
+        CategoryService> {
     @Autowired
     public CategoryController(CategoryService categoryService) {
         super(categoryService);

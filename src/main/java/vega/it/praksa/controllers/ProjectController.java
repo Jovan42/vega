@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vega.it.praksa.model.dtos.ProjectDto;
+import vega.it.praksa.model.dtos.ProjectOutputDto;
+import vega.it.praksa.model.dtos.ProjectInputDto;
 import vega.it.praksa.model.dtos.ProjectListDto;
 import vega.it.praksa.services.ProjectService;
 
@@ -14,7 +15,7 @@ import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/projects")
-public class ProjectController extends GenericCrudControllerImpl<ProjectDto, ProjectListDto, Long, ProjectService> {
+public class ProjectController extends GenericCrudControllerImpl<ProjectInputDto, ProjectOutputDto, ProjectListDto, Long, ProjectService> {
     @Autowired
     public ProjectController(ProjectService service) {
         super(service);

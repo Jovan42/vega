@@ -8,12 +8,12 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
-public class WorkDto {
+public class WorkInputDto {
     private Long id;
     @NotNull
-    private ProjectOutputDto project;
+    private Long project;
     @NotNull
-    private CategoryDto category;
+    private Long category;
     @NotBlank
     private String description;
     @NotNull

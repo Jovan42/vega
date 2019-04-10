@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import vega.it.praksa.exceptions.NotFoundException;
 import vega.it.praksa.mappers.DtoMapper;
 import vega.it.praksa.model.Client;
-import vega.it.praksa.model.Project;
-import vega.it.praksa.model.dtos.ProjectDto;
+import vega.it.praksa.model.dtos.ProjectOutputDto;
+import vega.it.praksa.model.dtos.ProjectInputDto;
 import vega.it.praksa.model.dtos.ProjectListDto;
 import vega.it.praksa.repositories.ClientRepository;
 import vega.it.praksa.repositories.ProjectRepository;
@@ -38,24 +38,24 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDto get(Long id) {
+    public ProjectOutputDto get(Long id) {
         return projectRepository.findById(id)
                 .map(mapper::projectToProjectDto)
                 .orElseThrow(()-> new NotFoundException("Country with id '" + id +"' is not found"));
     }
 
     @Override
-    public ProjectDto add(ProjectDto projectDto) {
+    public ProjectOutputDto add(ProjectInputDto projectDto) {
         projectDto.setId(null);
         return mapper.projectToProjectDto(
-                projectRepository.save(mapper.projectDtoToProject(projectDto))
+                projectRepository.save(mapper.projectInputDtoToProject(projectDto))
         );
     }
 
     @Override
-    public ProjectDto update(ProjectDto projectDto) {
+    public ProjectOutputDto update(ProjectInputDto projectDto) {
         return mapper.projectToProjectDto(
-                projectRepository.save(mapper.projectDtoToProject(projectDto))
+                projectRepository.save(mapper.projectInputDtoToProject(projectDto))
         );
     }
 
@@ -66,7 +66,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectListDto getByName(String name) {
-        List<ProjectDto> projects=  projectRepository.findAllByNameContaining(name)
+        List<ProjectOutputDto> projects=  projectRepository.findAllByNameContaining(name)
                 .stream()
                 .map(mapper::projectToProjectDto)
                 .collect(Collectors.toList());
@@ -75,7 +75,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectListDto getByFirstLetter(String letter) {
-        List<ProjectDto> projects=  projectRepository.findAllByNameStartsWithOrNameStartsWith(letter.toUpperCase(),
+        List<ProjectOutputDto> projects=  projectRepository.findAllByNameStartsWithOrNameStartsWith(letter.toUpperCase(),
                 letter.toLowerCase())
                 .stream()
                 .map(mapper::projectToProjectDto)
@@ -90,7 +90,7 @@ public class ProjectServiceImpl implements ProjectService {
         if(!client.isPresent()) {
             throw new NotFoundException("Client with id '" + clientId +"' is not found");
         }
-        List<ProjectDto> projects=  projectRepository.findAllByClient(client.get())
+        List<ProjectOutputDto> projects=  projectRepository.findAllByClient(client.get())
                 .stream()
                 .map(mapper::projectToProjectDto)
                 .collect(Collectors.toList());

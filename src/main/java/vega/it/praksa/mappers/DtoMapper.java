@@ -1,26 +1,58 @@
 package vega.it.praksa.mappers;
 
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import vega.it.praksa.model.*;
 import vega.it.praksa.model.dtos.*;
+import vega.it.praksa.repositories.*;
 
-@Mapper
+@Mapper(uses = {CountryRepository.class, ClientRepository.class, TeamMemberRepository.class,
+        CategoryRepository.class, ProjectRepository.class})
 public interface DtoMapper {
+
     Category categoryDtoToCategory(CategoryDto categoryDto);
     CategoryDto categoryToCategoryDto(Category category);
 
-    Client clientDtoToClient(ClientDto clientDto);
-    ClientDto clientToClientDto(Client client);
+    ClientOutputDto clientToClientDto(Client client);
+    @Mapping(source = "country", target = "country", qualifiedByName = "longToCountry")
+    Client clientInputDtoToClient(ClientInputDto clientInputDto);
 
     Country countryDtoToCountry (CountryDto countryDto);
     CountryDto countryToCountryDto(Country country);
 
-    Project projectDtoToProject (ProjectDto projectDto);
-    ProjectDto projectToProjectDto(Project project);
+    ProjectOutputDto projectToProjectDto(Project project);
+    Project projectInputDtoToProject(ProjectInputDto projectInputDto);
 
-    TeamMember teamMemberDtoToTeamMember(TeamMemberDto teamMemberDto);
-    TeamMemberDto teamMemberToTeamMemberDto(TeamMember teamMember);
+    TeamMember teamMemberDtoToTeamMember(TeamMemberInputDto teamMemberInputDto);
+    TeamMemberOutputDto teamMemberToTeamMemberOutputDto(TeamMember teamMember);
 
-    Work workDtoToWork (WorkDto workDto);
     WorkDto workToWorkDto(Work work);
+    Work workInputDtotoWork(WorkInputDto workInputDto);
+
+    @Named("longToCountry")
+    default Country longToCountry(Long id, @Context CountryRepository countryRepository) {
+        return countryRepository.findById(id).get();
+    }
+
+    @Named("longToClient")
+    default Client longToClient(Long id, @Context ClientRepository clientRepository) {
+        return clientRepository.findById(id).get();
+    }
+
+    @Named("longToCountry")
+    default TeamMember longToTeammember(Long id, @Context TeamMemberRepository teamMemberRepository) {
+        return teamMemberRepository.findById(id).get();
+    }
+
+    @Named("longToCategory")
+    default Category longToCategory(Long id, @Context CategoryRepository categoryRepository) {
+        return categoryRepository.findById(id).get();
+    }
+
+    @Named("longToProject")
+    default Project longToProject(Long id, @Context ProjectRepository projectRepository) {
+        return projectRepository.findById(id).get();
+    }
 }

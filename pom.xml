@@ -12,7 +12,7 @@
     <artifactId>timestamp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>TimeStamp</name>
-    <description>Demo projectDto for Spring Boot</description>
+    <description>Demo projectOutputDto for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -97,8 +97,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <source>1.8</source> <!-- or higher, depending on your projectDto -->
-                    <target>1.8</target> <!-- or higher, depending on your projectDto -->
+                    <source>1.8</source> <!-- or higher, depending on your projectOutputDto -->
+                    <target>1.8</target> <!-- or higher, depending on your projectOutputDto -->
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>

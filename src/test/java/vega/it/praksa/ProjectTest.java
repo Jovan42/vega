@@ -66,7 +66,7 @@ public class ProjectTest {
     public void add() throws Exception {
         mockMvc.perform(post("http://localhost:8080/api/projects")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"client\":{\"id\":1},\"lead\":{\"id\":1}}")
+                .content("{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"client\":1,\"lead\":1}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -76,7 +76,7 @@ public class ProjectTest {
 
         mockMvc.perform(put("http://localhost:8080/api/projects")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":2,\"name\":\"editC\",\"description\":\"c\",\"client\":{\"id\":1},\"lead\":{\"id\":1}}")
+                .content("{\"id\":2,\"name\":\"editC\",\"description\":\"c\",\"client\":1,\"lead\":1}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }

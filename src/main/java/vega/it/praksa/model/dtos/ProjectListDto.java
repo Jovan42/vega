@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ProjectListDto {
-    private List<ProjectDto> projects;
+    private List<ProjectOutputDto> projects;
 }

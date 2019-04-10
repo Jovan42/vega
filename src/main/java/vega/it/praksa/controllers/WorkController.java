@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vega.it.praksa.model.dtos.WorkDto;
+import vega.it.praksa.model.dtos.WorkInputDto;
 import vega.it.praksa.model.dtos.WorkListDto;
 import vega.it.praksa.services.WorkService;
 
@@ -18,7 +19,7 @@ import java.util.Date;
 @RestController
 @RequestMapping("/api/works")
 @Slf4j
-public class WorkController extends GenericCrudControllerImpl<WorkDto, WorkListDto, Long, WorkService> {
+public class WorkController extends GenericCrudControllerImpl<WorkInputDto, WorkDto, WorkListDto, Long, WorkService> {
 
     @Autowired
     public WorkController(WorkService workService) {

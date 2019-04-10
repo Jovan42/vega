@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class ClientDto {
+public class ClientInputDto {
     private Long id;
     @NotBlank
     private String name;
@@ -17,5 +17,5 @@ public class ClientDto {
     @NotBlank
     private String zipCode;
     @NotNull
-    private CountryDto country;
+    private Long country;
 }

@@ -78,7 +78,7 @@ public class ClientTest {
         mockMvc.perform(post("http://localhost:8080/api/clients")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":3,\"name\":\"c\",\"address\":\"c\",\"city\":\"c\",\"zipCode\":\"c\"," +
-                        "\"country\":{\"id\":1}}")
+                        "\"country\":1}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -88,7 +88,7 @@ public class ClientTest {
         mockMvc.perform(put("http://localhost:8080/api/clients")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":3,\"name\":\"editC\",\"address\":\"c\",\"city\":\"c\",\"zipCode\":\"c\"," +
-                        "\"country\":{\"id\":1}}")
+                        "\"country\":1}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
