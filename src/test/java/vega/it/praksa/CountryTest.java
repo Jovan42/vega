@@ -10,12 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import vega.it.praksa.model.Category;
-import vega.it.praksa.model.TeamMember;
-import vega.it.praksa.model.enums.Role;
-import vega.it.praksa.model.enums.Status;
-import vega.it.praksa.repositories.CategoryRepository;
-import vega.it.praksa.repositories.TeamMemberRepository;
+import vega.it.praksa.model.Client;
+import vega.it.praksa.model.Country;
+import vega.it.praksa.repositories.ClientRepository;
+import vega.it.praksa.repositories.CountryRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -24,40 +22,36 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CategoryTest {
+public class CountryTest {
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    ClientRepository clientRepository;
+    @Autowired
+    CountryRepository countryRepository;
+
 
     @Before
     public void setUp() {
-        Category category1 = new Category(1L, "a");
-        Category category2 = new Category(2L, "b");
-        Category category3 = new Category(3L, "x");
-        Category category4 = new Category(4L, "y");
+        Country country1 = new Country(1L, "a");
+        Country country2 = new Country(1L, "a");
 
-        categoryRepository.save(category1);
-        categoryRepository.save(category2);
-        categoryRepository.save(category3);
-        categoryRepository.save(category4);
+        countryRepository.save(country1);
+        countryRepository.save(country2);
     }
     @Test
     public void findAll() throws Exception {
-        mockMvc.perform(get("http://localhost:8080/api/categories")
+        mockMvc.perform(get("http://localhost:8080/api/countries")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
                 .andExpect(status().isOk());
     }
 
 
     @Test
     public void findById() throws Exception {
-        Category c = categoryRepository.findAll().get(0);
-
-        mockMvc.perform(get("http://localhost:8080/api/categories/" + c.getId())
+        mockMvc.perform(get("http://localhost:8080/api/countries/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -66,9 +60,9 @@ public class CategoryTest {
 
     @Test
     public void add() throws Exception {
-        mockMvc.perform(post("http://localhost:8080/api/categories")
+        mockMvc.perform(post("http://localhost:8080/api/countries")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":2,\"name\":\"c\"}")
+                .content("{\"id\":3,\"name\":\"c\"}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -76,12 +70,9 @@ public class CategoryTest {
 
     @Test
     public void edit() throws Exception {
-        Category c = categoryRepository.findAll().get(0);
-
-        mockMvc.perform(put("http://localhost:8080/api/categories")
+        mockMvc.perform(put("http://localhost:8080/api/countries")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":"+ c.getId() +",\"name\":\"edit\"}")
-
+                .content("{\"id\":3,\"name\":\"editC\"}")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
@@ -89,8 +80,7 @@ public class CategoryTest {
     //TODO pitaj
     //@Test
     public void remove() throws Exception {
-        Category c = categoryRepository.findAll().get(0);
-        mockMvc.perform(delete("http://localhost:8080/api/categories/" + c.getId()))
+        mockMvc.perform(delete("http://localhost:8080/api/countries/2"))
                 .andExpect(status().isOk());
     }
 
