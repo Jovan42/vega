@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Builder
-public class TeamMember {
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

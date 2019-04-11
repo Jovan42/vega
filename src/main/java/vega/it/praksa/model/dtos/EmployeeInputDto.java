@@ -8,10 +8,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class TeamMemberOutputDto {
+public class EmployeeInputDto {
     private Long id;
     @NotBlank
     private String username;
+    private String password;
     @NotBlank
     private String name;
     @NotNull
@@ -23,4 +24,8 @@ public class TeamMemberOutputDto {
     @NotNull
     private Status status;
 
+    public EmployeeInputDto setEmptyPassword() {
+        setPassword("");
+        return this;
+    }
 }

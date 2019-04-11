@@ -8,7 +8,7 @@ import vega.it.praksa.model.*;
 import vega.it.praksa.model.dtos.*;
 import vega.it.praksa.repositories.*;
 
-@Mapper(uses = {CountryRepository.class, ClientRepository.class, TeamMemberRepository.class,
+@Mapper(uses = {CountryRepository.class, ClientRepository.class, EmployeeRepository.class,
         CategoryRepository.class, ProjectRepository.class})
 public interface DtoMapper {
 
@@ -25,8 +25,8 @@ public interface DtoMapper {
     ProjectOutputDto projectToProjectDto(Project project);
     Project projectInputDtoToProject(ProjectInputDto projectInputDto);
 
-    TeamMember teamMemberDtoToTeamMember(TeamMemberInputDto teamMemberInputDto);
-    TeamMemberOutputDto teamMemberToTeamMemberOutputDto(TeamMember teamMember);
+    Employee teamMemberDtoToTeamMember(EmployeeInputDto employeeInputDto);
+    EmployeeOutputDto teamMemberToTeamMemberOutputDto(Employee employee);
 
     WorkDto workToWorkDto(Work work);
     Work workInputDtotoWork(WorkInputDto workInputDto);
@@ -42,8 +42,8 @@ public interface DtoMapper {
     }
 
     @Named("longToCountry")
-    default TeamMember longToTeammember(Long id, @Context TeamMemberRepository teamMemberRepository) {
-        return teamMemberRepository.findById(id).get();
+    default Employee longToTeammember(Long id, @Context EmployeeRepository employeeRepository) {
+        return employeeRepository.findById(id).get();
     }
 
     @Named("longToCategory")

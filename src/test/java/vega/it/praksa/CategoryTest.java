@@ -11,11 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import vega.it.praksa.model.Category;
-import vega.it.praksa.model.TeamMember;
-import vega.it.praksa.model.enums.Role;
-import vega.it.praksa.model.enums.Status;
 import vega.it.praksa.repositories.CategoryRepository;
-import vega.it.praksa.repositories.TeamMemberRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

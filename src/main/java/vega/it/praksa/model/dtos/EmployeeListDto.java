@@ -7,6 +7,6 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class TeamMemberListDto {
-    private List<TeamMemberOutputDto> teamMembers;
+public class EmployeeListDto {
+    private List<EmployeeOutputDto> teamMembers;
 }

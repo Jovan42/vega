@@ -4,9 +4,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import vega.it.praksa.model.TeamMember;
+import vega.it.praksa.model.Employee;
 import vega.it.praksa.model.Work;
-import vega.it.praksa.repositories.TeamMemberRepository;
+import vega.it.praksa.repositories.EmployeeRepository;
 import vega.it.praksa.repositories.WorkRepository;
 
 import java.time.LocalDate;
@@ -18,19 +18,19 @@ public class MailingServiceImpl {
 
 
     private WorkRepository workRepository;
-    private TeamMemberRepository teamMemberRepository;
+    private EmployeeRepository employeeRepository;
     private JavaMailSender emailSender;
 
-    public MailingServiceImpl(WorkRepository workRepository, TeamMemberRepository teamMemberRepository, JavaMailSender emailSender) {
+    public MailingServiceImpl(WorkRepository workRepository, EmployeeRepository employeeRepository, JavaMailSender emailSender) {
         this.workRepository = workRepository;
-        this.teamMemberRepository = teamMemberRepository;
+        this.employeeRepository = employeeRepository;
         this.emailSender = emailSender;
     }
 
     @Scheduled(cron = "0 59 23 ? * SUN")
     //@Scheduled(cron = "0 0/1 * 1/1 * ?")
     public  void checkHours(){
-        teamMemberRepository.findAll().forEach(teamMember -> {
+        employeeRepository.findAll().forEach(teamMember -> {
             double timeWorked = 0D;
             LocalDate start = LocalDate.now();
             start = start.minusDays(7);
@@ -44,11 +44,11 @@ public class MailingServiceImpl {
         });
     }
 
-    private void sendMail(Double timeWorked, TeamMember teamMember) {
-        System.out.println("Send mail to " + teamMember.getUsername());
+    private void sendMail(Double timeWorked, Employee employee) {
+        System.out.println("Send mail to " + employee.getUsername());
         SimpleMailMessage message = new SimpleMailMessage();
         //message.setTo("jovan0042@gmail.com");
-        message.setTo(teamMember.getEmail());
+        message.setTo(employee.getEmail());
         message.setSubject("Less then 40hrs of work");
         message.setText("You worked " + timeWorked + " last week");
         emailSender.send(message);

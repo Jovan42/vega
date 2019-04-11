@@ -10,33 +10,32 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import vega.it.praksa.model.TeamMember;
+import vega.it.praksa.model.Employee;
 import vega.it.praksa.model.enums.Role;
 import vega.it.praksa.model.enums.Status;
-import vega.it.praksa.repositories.TeamMemberRepository;
+import vega.it.praksa.repositories.EmployeeRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TeamMemberTest {
+public class EmployeeTest {
     private MockMvc mockMvc;
-    private TeamMemberRepository teamMemberRepository;
+    private EmployeeRepository employeeRepository;
 
     @Before
     public void setUp() {
 
-        TeamMember teamMember1 = new TeamMember(1l, "a", "a", "a", 40d
+        Employee employee1 = new Employee(1l, "a", "a", "a", 40d
                 , "a", Role.ADMIN, Status.ACTIVE);
-        TeamMember teamMember2 = new TeamMember(2l, "b", "b", "b", 40d
+        Employee employee2 = new Employee(2l, "b", "b", "b", 40d
                 , "b", Role.WORKER, Status.INACTIVE);
 
-        teamMemberRepository.save(teamMember1);
-        teamMemberRepository.save(teamMember2);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
 
     }
     @Test
@@ -90,7 +89,7 @@ public class TeamMemberTest {
     }
 
     @Autowired
-    public void setTeamMemberRepository(TeamMemberRepository teamMemberRepository) {
-        this.teamMemberRepository = teamMemberRepository;
+    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 }

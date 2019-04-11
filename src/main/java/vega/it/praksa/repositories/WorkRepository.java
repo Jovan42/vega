@@ -19,8 +19,8 @@ public interface WorkRepository extends JpaRepository<Work, Long> {
     List<Work> search(Long categoryId, Long projectId, Long clientId, Long leadId, Date startDate, Date endDate);
 
     //@Query("select w from Work w where w.project.lead.id = ?1 and w.date >= ?2 and w.date <=?3")
-    List<Work> findAllByProject_LeadAndDateBetween(TeamMember teamMemberId, Date start, Date end);
+    List<Work> findAllByProject_LeadAndDateBetween(Employee employeeId, Date start, Date end);
 
-    List<Work> findAllByProject_Lead(TeamMember teamMemberId);
+    List<Work> findAllByProject_Lead(Employee employeeId);
 
 }

@@ -15,18 +15,18 @@ import java.util.Collection;
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 5197941260523577515L;
 
-    private TeamMember teamMember;
+    private Employee employee;
 
 
-    public UserDetailsImpl(TeamMember teamMember) {
-        this.teamMember = teamMember;
+    public UserDetailsImpl(Employee employee) {
+        this.employee = employee;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("WORKER" ));
-        if(teamMember.getRole() != null && teamMember.getRole().equals(Role.ADMIN))
+        if(employee.getRole() != null && employee.getRole().equals(Role.ADMIN))
             authorities.add(new SimpleGrantedAuthority("ADMIN"));
 
         return authorities;
@@ -34,17 +34,17 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public boolean isAdmin() {
-        return teamMember.getRole().equals(Role.ADMIN);
+        return employee.getRole().equals(Role.ADMIN);
     }
 
     @Override
     public String getPassword() {
-        return teamMember.getPassword();
+        return employee.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return teamMember.getUsername();
+        return employee.getUsername();
     }
 
     @Override

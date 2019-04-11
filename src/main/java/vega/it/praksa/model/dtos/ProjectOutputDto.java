@@ -15,6 +15,6 @@ public class ProjectOutputDto {
     @NotNull
     private ClientOutputDto client;
     @NotNull
-    private TeamMemberInputDto lead;
+    private EmployeeInputDto lead;
 
 }

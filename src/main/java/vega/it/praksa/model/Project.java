@@ -20,6 +20,6 @@ public class Project {
     @ManyToOne
     private Client client;
     @ManyToOne
-    private TeamMember lead;
+    private Employee lead;
 
 }
