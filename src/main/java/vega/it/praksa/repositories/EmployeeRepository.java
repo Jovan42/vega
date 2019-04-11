@@ -10,5 +10,4 @@ import java.util.Optional;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Optional<Employee> getByUsername(String username);
     List<Employee> findAllByProjectMember_IdIsNull();
-
 }

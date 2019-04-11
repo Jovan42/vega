@@ -35,6 +35,10 @@ public interface DtoMapper {
     WorkDto workToWorkDto(Work work);
     Work workInputDtoToWork(WorkInputDto workInputDto);
 
+    Team teamDtoToTeam (TeamInputDto teamInputDto);
+    TeamOutputDto teamToTeamOutputDto(Team team);
+
+
     @Named("longToCountry")
     default Country longToCountry(Long id, @Context CountryRepository countryRepository) {
         return countryRepository.findById(id).get();
