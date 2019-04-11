@@ -9,7 +9,7 @@ import vega.it.praksa.model.dtos.*;
 import vega.it.praksa.repositories.*;
 
 @Mapper(uses = {CountryRepository.class, ClientRepository.class, EmployeeRepository.class,
-        CategoryRepository.class, ProjectRepository.class})
+        CategoryRepository.class, ProjectRepository.class, EmployeeRepository.class})
 public interface DtoMapper {
 
     Category categoryDtoToCategory(CategoryDto categoryDto);
@@ -25,11 +25,15 @@ public interface DtoMapper {
     ProjectOutputDto projectToProjectDto(Project project);
     Project projectInputDtoToProject(ProjectInputDto projectInputDto);
 
-    Employee teamMemberDtoToTeamMember(EmployeeInputDto employeeInputDto);
-    EmployeeOutputDto teamMemberToTeamMemberOutputDto(Employee employee);
+    Employee employeeDtoToEmployee(EmployeeInputDto employeeInputDto);
+    EmployeeOutputDto employeeToEmployeeOutputDto(Employee employee);
+
+    ProjectMember projectMemberDtoToProjectMember(ProjectMemberInputDto projectMemberInputDto);
+    @Mapping(source = "project", target = "project", qualifiedByName = "projectToString")
+    ProjectMemberOutputDto projectMemberToProjectMemberOutputDto(ProjectMember projectMember);
 
     WorkDto workToWorkDto(Work work);
-    Work workInputDtotoWork(WorkInputDto workInputDto);
+    Work workInputDtoToWork(WorkInputDto workInputDto);
 
     @Named("longToCountry")
     default Country longToCountry(Long id, @Context CountryRepository countryRepository) {
@@ -54,5 +58,15 @@ public interface DtoMapper {
     @Named("longToProject")
     default Project longToProject(Long id, @Context ProjectRepository projectRepository) {
         return projectRepository.findById(id).get();
+    }
+
+    @Named("longToEmployee")
+    default Employee longToEmployee(Long id, @Context EmployeeRepository employeeRepository) {
+        return employeeRepository.findById(id).get();
+    }
+
+    @Named("projectToString")
+    default String projectToString(Project project) {
+        return project.getName();
     }
 }

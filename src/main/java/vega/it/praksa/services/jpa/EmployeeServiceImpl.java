@@ -34,14 +34,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeListDto get() {
         return new EmployeeListDto(employeeRepository.findAll().stream()
-                .map(mapper::teamMemberToTeamMemberOutputDto)
-                .collect(Collectors.toList()));    }
+                .map(mapper::employeeToEmployeeOutputDto)
+                .collect(Collectors.toList()));
+    }
+
 
     @Override
     //TODO preko lambda izraza
     public EmployeeOutputDto get(Long id) {
        return employeeRepository.findById(id)
-                .map(mapper::teamMemberToTeamMemberOutputDto)
+                .map(mapper::employeeToEmployeeOutputDto)
                 .orElseThrow(()-> new NotFoundException("Team member with id '" + id +"' is not found"));
     }
 
@@ -49,8 +51,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeOutputDto add(EmployeeInputDto employeeInputDto) {
         employeeInputDto.setId(null);
         employeeInputDto.setPassword(passwordEncoder.encode(employeeInputDto.getPassword()));
-        return mapper.teamMemberToTeamMemberOutputDto(employeeRepository.save(
-                mapper.teamMemberDtoToTeamMember(employeeInputDto))
+        return mapper.employeeToEmployeeOutputDto(employeeRepository.save(
+                mapper.employeeDtoToEmployee(employeeInputDto))
         );
 
     }
@@ -62,8 +64,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                         +"' is not found")).getPassword();
 
         employeeInputDto.setPassword(oldPassword);
-        return mapper.teamMemberToTeamMemberOutputDto(employeeRepository.save(
-                mapper.teamMemberDtoToTeamMember(employeeInputDto))
+        return mapper.employeeToEmployeeOutputDto(employeeRepository.save(
+                mapper.employeeDtoToEmployee(employeeInputDto))
         );
     }
 
@@ -86,7 +88,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeOutputDto get(String username) {
         return employeeRepository.getByUsername(username)
-                .map(mapper::teamMemberToTeamMemberOutputDto)
+                .map(mapper::employeeToEmployeeOutputDto)
                 .orElseThrow(()-> new NotFoundException("Team member with username '" + username +"' is not found"));
     }
 
@@ -116,5 +118,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return  auth.getName();
 
+    }
+
+    @Override
+    public EmployeeListDto getAllWithoutProject() {
+        return new EmployeeListDto(employeeRepository.findAllByProjectMember_IdIsNull().stream()
+                .map(mapper::employeeToEmployeeOutputDto)
+                .collect(Collectors.toList()));
     }
 }

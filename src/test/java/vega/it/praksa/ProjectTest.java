@@ -38,10 +38,10 @@ public class ProjectTest {
         clientRepository.save(client1);
 
         Employee employee1 = new Employee(1l, "a", "a", "a", 40d
-                , "a", Role.ADMIN, Status.ACTIVE);
+                , "a", Role.ADMIN, Status.ACTIVE, null);
         employeeRepository.save(employee1);
 
-        Project project = new Project(1L, "a", "a", client1, employee1);
+        Project project = new Project(1L, "a", "a", client1, employee1, null);
         projectRepository.save(project);
 
     }

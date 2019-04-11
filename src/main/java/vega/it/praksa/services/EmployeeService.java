@@ -10,4 +10,5 @@ public interface EmployeeService extends GenericService<EmployeeInputDto, Employ
     Boolean login(String username, String password);
     void logout();
     String getLoggedIn();
+    EmployeeListDto getAllWithoutProject();
 }

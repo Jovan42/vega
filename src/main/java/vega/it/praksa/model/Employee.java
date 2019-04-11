@@ -1,5 +1,6 @@
 package vega.it.praksa.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import vega.it.praksa.model.enums.Role;
 import vega.it.praksa.model.enums.Status;
@@ -30,6 +31,9 @@ public class Employee {
     private Role role;
     @Column(nullable = false)
     private Status status;
+    @JsonIgnore
+    @OneToOne(mappedBy = "employee",fetch = FetchType.EAGER )
+    private ProjectMember projectMember;
 }
 
 //

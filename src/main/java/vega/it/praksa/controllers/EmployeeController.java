@@ -1,6 +1,8 @@
 package vega.it.praksa.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vega.it.praksa.model.dtos.EmployeeOutputDto;
 import vega.it.praksa.model.dtos.EmployeeInputDto;
@@ -14,5 +16,10 @@ public class EmployeeController extends GenericCrudControllerImpl<EmployeeInputD
     @Autowired
     public EmployeeController(EmployeeService employeeService) {
         super(employeeService);
+    }
+
+    @GetMapping("/no-project")
+    public ResponseEntity<EmployeeListDto> getAllWithoutProject(){
+        return new ResponseEntity<>(service.getAllWithoutProject(), HttpStatus.OK);
     }
 }

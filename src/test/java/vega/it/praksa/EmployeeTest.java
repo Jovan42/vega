@@ -30,9 +30,9 @@ public class EmployeeTest {
     public void setUp() {
 
         Employee employee1 = new Employee(1l, "a", "a", "a", 40d
-                , "a", Role.ADMIN, Status.ACTIVE);
+                , "a", Role.ADMIN, Status.ACTIVE, null);
         Employee employee2 = new Employee(2l, "b", "b", "b", 40d
-                , "b", Role.WORKER, Status.INACTIVE);
+                , "b", Role.WORKER, Status.INACTIVE, null);
 
         employeeRepository.save(employee1);
         employeeRepository.save(employee2);

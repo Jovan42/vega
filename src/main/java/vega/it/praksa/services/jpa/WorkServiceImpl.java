@@ -87,14 +87,14 @@ public class WorkServiceImpl implements WorkService {
     public WorkDto add(WorkInputDto workDto) {
         workDto.setId(null);
         return mapper.workToWorkDto(
-                workRepository.save(mapper.workInputDtotoWork(workDto))
+                workRepository.save(mapper.workInputDtoToWork(workDto))
         );
     }
 
     @Override
     public WorkDto update(WorkInputDto workDto) {
         return mapper.workToWorkDto(
-                workRepository.save(mapper.workInputDtotoWork(workDto))
+                workRepository.save(mapper.workInputDtoToWork(workDto))
         );
     }
 
