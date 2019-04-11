@@ -17,4 +17,10 @@ public interface WorkRepository extends JpaRepository<Work, Long> {
     "and (w.project.client.id = ?3 or ?3 = null) and (w.project.lead.id = ?4 or ?4 = null) and " +
             "(w.date >= ?5 or ?5 = null) and (w.date <= ?6 or ?6 = null)")
     List<Work> search(Long categoryId, Long projectId, Long clientId, Long leadId, Date startDate, Date endDate);
+
+    //@Query("select w from Work w where w.project.lead.id = ?1 and w.date >= ?2 and w.date <=?3")
+    List<Work> findAllByProject_LeadAndDateBetween(TeamMember teamMemberId, Date start, Date end);
+
+    List<Work> findAllByProject_Lead(TeamMember teamMemberId);
+
 }
