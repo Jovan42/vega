@@ -126,4 +126,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .map(mapper::employeeToEmployeeOutputDto)
                 .collect(Collectors.toList()));
     }
+    @Override
+    public EmployeeListDto getAllWithoutTeam() {
+        return new EmployeeListDto(employeeRepository.findAllByTeamsIsNull().stream()
+                .map(mapper::employeeToEmployeeOutputDto)
+                .collect(Collectors.toList()));
+    }
 }

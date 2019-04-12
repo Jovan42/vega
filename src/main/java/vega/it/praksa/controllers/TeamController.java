@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vega.it.praksa.model.Employee;
 import vega.it.praksa.model.dtos.EmployeeListDto;
 import vega.it.praksa.model.dtos.TeamInputDto;
 import vega.it.praksa.model.dtos.TeamListDto;

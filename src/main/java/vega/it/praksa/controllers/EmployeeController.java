@@ -22,4 +22,9 @@ public class EmployeeController extends GenericCrudControllerImpl<EmployeeInputD
     public ResponseEntity<EmployeeListDto> getAllWithoutProject(){
         return new ResponseEntity<>(service.getAllWithoutProject(), HttpStatus.OK);
     }
+
+    @GetMapping("/no-team")
+    public ResponseEntity<EmployeeListDto> getAllWithoutTeam(){
+        return new ResponseEntity<>(service.getAllWithoutTeam(), HttpStatus.OK);
+    }
 }

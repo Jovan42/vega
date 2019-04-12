@@ -6,6 +6,7 @@ import vega.it.praksa.model.enums.Role;
 import vega.it.praksa.model.enums.Status;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -34,6 +35,10 @@ public class Employee {
     @JsonIgnore
     @OneToOne(mappedBy = "employee",fetch = FetchType.EAGER )
     private ProjectMember projectMember;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "employees")
+    List<Team> teams;
 }
 
 //
