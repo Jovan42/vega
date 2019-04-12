@@ -5,12 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import vega.it.praksa.model.Employee;
-import vega.it.praksa.model.Project;
-import vega.it.praksa.model.ProjectMember;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
-
 
 @Getter
 @Setter
@@ -19,11 +15,8 @@ import java.util.List;
 public class ProjectMemberOutputDto {
     private Long id;
 
-    @NotNull
-    private Employee employee;
+    @NotNull private Employee employee;
 
-    @NotNull
-    private String project;
-    @NotNull
-    private Double dailyAllocation;
+    @NotNull private String project;
+    @NotNull private Double dailyAllocation;
 }

@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ProjectMemberListDto {
-    List<ProjectMemberOutputDto>  projectMembers;
+    List<ProjectMemberOutputDto> projectMembers;
 }

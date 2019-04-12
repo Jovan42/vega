@@ -11,6 +11,7 @@ public class ErrorMessages {
     private Integer code;
     private String status;
     private List<String> messages;
+
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Date timestamp;
 

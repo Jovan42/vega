@@ -14,7 +14,6 @@ import java.util.List;
 public class BadRequestException extends RuntimeException {
     private ErrorMessages errorMessages;
 
-
     public BadRequestException(String message) {
         List<String> msgs = new ArrayList<>();
         msgs.add(message);

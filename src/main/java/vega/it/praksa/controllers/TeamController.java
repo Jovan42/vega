@@ -12,8 +12,9 @@ import vega.it.praksa.services.TeamService;
 
 @RestController
 @RequestMapping("/api/teams")
-public class TeamController extends GenericCrudControllerImpl<TeamInputDto, TeamOutputDto, TeamListDto, Long,
-        TeamService> {
+public class TeamController
+        extends GenericCrudControllerImpl<
+                TeamInputDto, TeamOutputDto, TeamListDto, Long, TeamService> {
 
     @Autowired
     public TeamController(TeamService service) {
@@ -21,19 +22,21 @@ public class TeamController extends GenericCrudControllerImpl<TeamInputDto, Team
     }
 
     @GetMapping("/{id}/employees")
-    public ResponseEntity<EmployeeListDto> getEmployees(@PathVariable("id")Long id) {
+    public ResponseEntity<EmployeeListDto> getEmployees(@PathVariable("id") Long id) {
         return new ResponseEntity<>(service.getEmployees(id), HttpStatus.OK);
     }
 
     @PostMapping("/{id}/employees/{employeeId}")
-    public ResponseEntity<Void> addEmployees(@PathVariable("id")Long id, @PathVariable("employeeId")Long employeeId) {
+    public ResponseEntity<Void> addEmployees(
+            @PathVariable("id") Long id, @PathVariable("employeeId") Long employeeId) {
         service.addEmployee(id, employeeId);
-        return  new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/employees/{employeeId}")
-    public ResponseEntity<Void> removeEmployees(@PathVariable("id")Long id, @PathVariable("employeeId")Long employeeId) {
+    public ResponseEntity<Void> removeEmployees(
+            @PathVariable("id") Long id, @PathVariable("employeeId") Long employeeId) {
         service.removeEmployee(id, employeeId);
-        return  new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -21,8 +21,6 @@ public class ProjectMember {
     @OneToOne(fetch = FetchType.EAGER)
     private Employee employee;
 
-    @ManyToOne
-    private Project project;
-    @NotNull
-    private Double dailyAllocation;
+    @ManyToOne private Project project;
+    @NotNull private Double dailyAllocation;
 }

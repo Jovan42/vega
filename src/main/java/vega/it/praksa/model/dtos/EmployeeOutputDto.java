@@ -10,17 +10,10 @@ import javax.validation.constraints.NotNull;
 @Data
 public class EmployeeOutputDto {
     private Long id;
-    @NotBlank
-    private String username;
-    @NotBlank
-    private String name;
-    @NotNull
-    private Double hoursPerWeek;
-    @NotBlank
-    private String email;
-    @NotNull
-    private Role role;
-    @NotNull
-    private Status status;
-
+    @NotBlank private String username;
+    @NotBlank private String name;
+    @NotNull private Double hoursPerWeek;
+    @NotBlank private String email;
+    @NotNull private Role role;
+    @NotNull private Status status;
 }

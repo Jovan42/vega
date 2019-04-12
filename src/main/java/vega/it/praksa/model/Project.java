@@ -1,6 +1,9 @@
 package vega.it.praksa.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,15 +17,16 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String description;
-    @ManyToOne
-    private Client client;
-    @ManyToOne
-    private Employee lead;
+
+    @ManyToOne private Client client;
+    @ManyToOne private Employee lead;
+
     @OneToMany(mappedBy = "project")
     List<ProjectMember> projectMembers;
-
 }

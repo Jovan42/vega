@@ -7,8 +7,12 @@ import vega.it.praksa.services.GenericService;
 
 import javax.validation.Valid;
 
-public class GenericCrudControllerImpl<T_INPUT_DTO, T_OUTPUT_DTO, T_COLLECTION, IDENTIFIER, SERVICE
-            extends GenericService<T_INPUT_DTO,T_OUTPUT_DTO, T_COLLECTION, IDENTIFIER> >
+public class GenericCrudControllerImpl<
+                T_INPUT_DTO,
+                T_OUTPUT_DTO,
+                T_COLLECTION,
+                IDENTIFIER,
+                SERVICE extends GenericService<T_INPUT_DTO, T_OUTPUT_DTO, T_COLLECTION, IDENTIFIER>>
         implements GenericCrudController<T_INPUT_DTO, T_OUTPUT_DTO, T_COLLECTION, IDENTIFIER> {
 
     SERVICE service;

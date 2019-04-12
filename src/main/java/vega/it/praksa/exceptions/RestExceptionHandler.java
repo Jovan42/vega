@@ -18,5 +18,4 @@ public class RestExceptionHandler {
     public ResponseEntity<ErrorMessages> processNotFoundException(NotFoundException ex) {
         return new ResponseEntity<>(ex.getErrorMessages(), HttpStatus.NOT_FOUND);
     }
-
 }

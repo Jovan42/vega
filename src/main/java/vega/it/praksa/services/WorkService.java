@@ -7,6 +7,13 @@ import vega.it.praksa.model.dtos.WorkListDto;
 import java.util.Date;
 
 public interface WorkService extends GenericService<WorkInputDto, WorkDto, WorkListDto, Long> {
-    WorkListDto getForDay(String year, String month, String day );
-    WorkListDto search(String category, String project, String client, String lead, Date startDate, Date endDate);
+    WorkListDto getForDay(String year, String month, String day);
+
+    WorkListDto search(
+            String category,
+            String project,
+            String client,
+            String lead,
+            Date startDate,
+            Date endDate);
 }

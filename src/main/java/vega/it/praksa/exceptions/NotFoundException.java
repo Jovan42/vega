@@ -1,6 +1,9 @@
 package vega.it.praksa.exceptions;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import vega.it.praksa.model.dtos.ErrorMessages;
 
 import java.util.ArrayList;
@@ -10,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NotFoundException extends  RuntimeException{
+public class NotFoundException extends RuntimeException {
     private ErrorMessages errorMessages;
 
     public NotFoundException(String msg) {
@@ -19,9 +22,7 @@ public class NotFoundException extends  RuntimeException{
         this.errorMessages = new ErrorMessages(404, "Not Found", msgs);
     }
 
-
     public NotFoundException(List<String> msgs) {
         this.errorMessages = new ErrorMessages(404, "Not Found", msgs);
     }
-
 }

@@ -2,7 +2,6 @@ package vega.it.praksa.model.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import vega.it.praksa.model.Team;
 
 import java.util.List;
 

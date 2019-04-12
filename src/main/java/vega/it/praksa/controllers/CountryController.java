@@ -9,7 +9,9 @@ import vega.it.praksa.services.CountryService;
 
 @RestController
 @RequestMapping("/api/countries")
-public class CountryController extends GenericCrudControllerImpl<CountryDto, CountryDto, CountryListDto, Long, CountryService> {
+public class CountryController
+        extends GenericCrudControllerImpl<
+                CountryDto, CountryDto, CountryListDto, Long, CountryService> {
     @Autowired
     public CountryController(CountryService countryService) {
         super(countryService);

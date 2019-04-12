@@ -10,17 +10,13 @@ import java.util.Date;
 @Data
 public class WorkInputDto {
     private Long id;
+    @NotNull private Long project;
+    @NotNull private Long category;
+    @NotBlank private String description;
+    @NotNull private Double time;
+    @NotNull private Double overtime;
+    @NotNull private Long employee;
     @NotNull
-    private Long project;
-    @NotNull
-    private Long category;
-    @NotBlank
-    private String description;
-    @NotNull
-    private Double time;
-    @NotNull
-    private Double overtime;
-    @NotNull
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="CET")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "CET")
     private Date date;
 }

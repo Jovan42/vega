@@ -17,7 +17,6 @@ public class UserDetailsImpl implements UserDetails {
 
     private Employee employee;
 
-
     public UserDetailsImpl(Employee employee) {
         this.employee = employee;
     }
@@ -25,12 +24,11 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("WORKER" ));
-        if(employee.getRole() != null && employee.getRole().equals(Role.ADMIN))
+        authorities.add(new SimpleGrantedAuthority("WORKER"));
+        if (employee.getRole() != null && employee.getRole().equals(Role.ADMIN))
             authorities.add(new SimpleGrantedAuthority("ADMIN"));
 
         return authorities;
-
     }
 
     public boolean isAdmin() {

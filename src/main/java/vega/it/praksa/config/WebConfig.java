@@ -18,9 +18,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         ResourceResolver resolver = new ReactResourceResolver();
-        registry.addResourceHandler("/**")
-                .resourceChain(true)
-                .addResolver(resolver);
+        registry.addResourceHandler("/**").resourceChain(true).addResolver(resolver);
 
         // Can try to play with
         // registry.addResourceHandler("/**")
@@ -31,9 +29,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         // and to be honest it is some regex madness, so
         // it was easier for me to setup custom resource resolver
 
-
     }
-
 
     public class ReactResourceResolver implements ResourceResolver {
         // root dir of react files
@@ -46,20 +42,24 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         private static final String REACT_STATIC_DIR = "static";
 
         private Resource index = new ClassPathResource(REACT_DIR + "index.html");
-        private List<String> rootStaticFiles = Arrays.asList("favicon.io",
-                "asset-manifest.json", "manifest.json", "service-worker.js");
+        private List<String> rootStaticFiles =
+                Arrays.asList(
+                        "favicon.io", "asset-manifest.json", "manifest.json", "service-worker.js");
 
         @Override
         public Resource resolveResource(
-                HttpServletRequest request, String requestPath,
-                List<? extends Resource> locations, ResourceResolverChain chain) {
+                HttpServletRequest request,
+                String requestPath,
+                List<? extends Resource> locations,
+                ResourceResolverChain chain) {
 
             return resolve(requestPath, locations);
         }
 
         @Override
         public String resolveUrlPath(
-                String resourcePath, List<? extends Resource> locations,
+                String resourcePath,
+                List<? extends Resource> locations,
                 ResourceResolverChain chain) {
 
             Resource resolvedResource = resolve(resourcePath, locations);
@@ -73,17 +73,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             }
         }
 
-        private Resource resolve(
-                String requestPath, List<? extends Resource> locations) {
+        private Resource resolve(String requestPath, List<? extends Resource> locations) {
 
             if (requestPath == null) return null;
 
-            if (rootStaticFiles.contains(requestPath)
-                    || requestPath.startsWith(REACT_STATIC_DIR)) {
+            if (rootStaticFiles.contains(requestPath) || requestPath.startsWith(REACT_STATIC_DIR)) {
                 return new ClassPathResource(REACT_DIR + requestPath);
-            } else
-                return index;
+            } else return index;
         }
-
     }
 }

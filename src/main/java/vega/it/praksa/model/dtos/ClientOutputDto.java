@@ -8,14 +8,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ClientOutputDto {
     private Long id;
-    @NotBlank
-    private String name;
-    @NotBlank
-    private String address;
-    @NotBlank
-    private String city;
-    @NotBlank
-    private String zipCode;
-    @NotNull
-    private CountryDto country;
+    @NotBlank private String name;
+    @NotBlank private String address;
+    @NotBlank private String city;
+    @NotBlank private String zipCode;
+    @NotNull private CountryDto country;
 }

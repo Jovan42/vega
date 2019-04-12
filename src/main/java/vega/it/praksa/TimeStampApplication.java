@@ -11,5 +11,4 @@ public class TimeStampApplication {
     public static void main(String[] args) {
         SpringApplication.run(TimeStampApplication.class, args);
     }
-
 }

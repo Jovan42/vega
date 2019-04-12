@@ -1,6 +1,5 @@
 package vega.it.praksa;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,6 @@ import vega.it.praksa.repositories.*;
 import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -41,83 +39,88 @@ public class WorkTest {
         Client client1 = new Client(1L, "a", "a", "a", "a", country);
         clientRepository.save(client1);
 
-        Employee employee1 = new Employee(1l, "a", "a", "a", 40d
-                , "a", Role.ADMIN, Status.ACTIVE, null, null);
+        Employee employee1 =
+                new Employee(1l, "a", "a", "a", 40d, "a", Role.ADMIN, Status.ACTIVE, null, null);
         employeeRepository.save(employee1);
 
         Project project = new Project(1L, "a", "a", client1, employee1, null);
         projectRepository.save(project);
 
-
         Category category = new Category(1L, "y");
 
         categoryRepository.save(category);
 
-        Work work = new Work(1L, project, category, "a",5D,5D, new Date());
+        Work work = new Work(1L, project, category, "a", 5D, 5D, null,new Date());
         workRepository.save(work);
     }
+
     @Test
     public void findAll() throws Exception {
-        mockMvc.perform(get("http://localhost:8080/api/works")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        get("http://localhost:8080/api/works")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
 
     @Test
     public void findById() throws Exception {
 
-        mockMvc.perform(get("http://localhost:8080/api/works/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        get("http://localhost:8080/api/works/1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void findForDay() throws Exception {
 
-        mockMvc.perform(get("http://localhost:8080/api/works/for-day?year=2019&month=4&day=10")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        get("http://localhost:8080/api/works/for-day?year=2019&month=4&day=10")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void search() throws Exception {
-        mockMvc.perform(get("http://localhost:8080/api/works/search?")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        get("http://localhost:8080/api/works/search?")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void add() throws Exception {
-        mockMvc.perform(post("http://localhost:8080/api/works")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,\"" +
-                        "overtime\": 20,\"project\":1,\"category\":1}")
-                .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        post("http://localhost:8080/api/works")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(
+                                        "{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,\""
+                                                + "overtime\": 20,\"project\":1,\"category\":1}")
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void edit() throws Exception {
 
-        mockMvc.perform(put("http://localhost:8080/api/works")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":2,\"name\":\"cEdit\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40," +
-                        "\"overtime\": 20,\"project\":1,\"category\":1}")
-                .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(
+                        put("http://localhost:8080/api/works")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(
+                                        "{\"id\":2,\"name\":\"cEdit\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,"
+                                                + "\"overtime\": 20,\"project\":1,\"category\":1}")
+                                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    //TODO pitaj
-    //@Test
+    // TODO pitaj
+    // @Test
     public void remove() throws Exception {
-        mockMvc.perform(delete("http://localhost:8080/api/works/2"))
-                .andExpect(status().isOk());
+        mockMvc.perform(delete("http://localhost:8080/api/works/2")).andExpect(status().isOk());
     }
-
 
     @Autowired
     public void setMockMvc(MockMvc mockMvc) {

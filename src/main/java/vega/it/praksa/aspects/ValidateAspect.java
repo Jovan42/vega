@@ -16,8 +16,8 @@ import java.util.List;
 public class ValidateAspect {
 
     @Before("execution(public * vega.it.praksa.controllers.*.*(..)) && args(.., errors)")
-    public void beforeController(Errors errors){
-        if(errors != null && errors.hasErrors()) {
+    public void beforeController(Errors errors) {
+        if (errors != null && errors.hasErrors()) {
             List<String> errorMessages = new ArrayList<>();
             for (FieldError fe : errors.getFieldErrors()) {
                 errorMessages.add(fe.getField() + " " + fe.getDefaultMessage());
@@ -25,5 +25,4 @@ public class ValidateAspect {
             throw new BadRequestException(new ErrorMessages(400, "Bad Request", errorMessages));
         }
     }
-
 }

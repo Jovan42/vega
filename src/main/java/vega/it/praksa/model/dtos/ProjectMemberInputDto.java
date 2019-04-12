@@ -1,9 +1,6 @@
 package vega.it.praksa.model.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,15 +8,13 @@ import javax.validation.constraints.NotNull;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ProjectMemberInputDto {
     private Long id;
 
-    @NotNull
-    private Long employee;
+    @NotNull private Long employee;
 
-    @NotNull
-    private Long project;
+    @NotNull private Long project;
 
-    @NotNull
-    private Double dailyAllocation;
+    @NotNull private Double dailyAllocation;
 }

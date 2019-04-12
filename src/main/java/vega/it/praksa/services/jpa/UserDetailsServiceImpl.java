@@ -10,7 +10,6 @@ import vega.it.praksa.model.Employee;
 import vega.it.praksa.model.UserDetailsImpl;
 import vega.it.praksa.repositories.EmployeeRepository;
 
-
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
     private EmployeeRepository employeeRepository;
@@ -23,8 +22,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Employee employee = employeeRepository.getByUsername(username)
-                .orElseThrow(()-> new NotFoundException("Team member with usernanme '" + username +"' is not found"));
+        Employee employee =
+                employeeRepository
+                        .getByUsername(username)
+                        .orElseThrow(
+                                () ->
+                                        new NotFoundException(
+                                                "Team member with usernanme '"
+                                                        + username
+                                                        + "' is not found"));
 
         UserDetailsImpl userDetail = new UserDetailsImpl(employee);
         return userDetail;
