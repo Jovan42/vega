@@ -98,7 +98,6 @@ public class ClientTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-    // TODO pitaj
     // @Test
     public void remove() throws Exception {
         mockMvc.perform(delete("http://localhost:8080/api/clients/2")).andExpect(status().isOk());

@@ -70,7 +70,6 @@ public class CountryTest {
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    // TODO pitaj
     // @Test
     public void remove() throws Exception {
         mockMvc.perform(delete("http://localhost:8080/api/countries/2")).andExpect(status().isOk());

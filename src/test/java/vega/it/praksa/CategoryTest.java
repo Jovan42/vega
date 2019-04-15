@@ -91,7 +91,6 @@ public class CategoryTest {
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    // TODO pitaj
     // @Test
     public void remove() throws Exception {
         Category c = categoryRepository.findAll().get(0);

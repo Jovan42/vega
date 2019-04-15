@@ -6,9 +6,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class TimeStampApplication {
+public class TimeSheetApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TimeStampApplication.class, args);
+        SpringApplication.run(TimeSheetApplication.class, args);
     }
 }

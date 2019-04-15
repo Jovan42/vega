@@ -1,8 +1,9 @@
 package vega.it.praksa;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-import vega.it.praksa.model.dtos.*;
+import vega.it.praksa.model.dtos.CategoryDto;
+import vega.it.praksa.model.dtos.CountryDto;
+import vega.it.praksa.model.dtos.EmployeeInputDto;
 import vega.it.praksa.model.enums.Role;
 import vega.it.praksa.model.enums.Status;
 import vega.it.praksa.services.*;
@@ -32,7 +33,7 @@ public class InitData implements CommandLineRunner {
         addEmployees();
         addCountries();
         addCategories();
-        //addProjects();
+        // addProjects();
     }
 
     private void addEmployees() {
@@ -88,4 +89,5 @@ public class InitData implements CommandLineRunner {
     }
 }
 
-    //SELECT employee_id , SUM (time)  FROM WORK w WHERE w.date <   '2019-12-4' AND w.date > '2019-5-4'  GROUP BY employee_id HAVING SUM(time) < 40;
+    // SELECT employee_id , SUM (time)  FROM WORK w WHERE w.date <   '2019-12-4' AND w.date >
+    // '2019-5-4'  GROUP BY employee_id HAVING SUM(time) < 40;

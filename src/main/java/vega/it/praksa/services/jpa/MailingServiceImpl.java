@@ -9,6 +9,8 @@ import vega.it.praksa.model.Employee;
 import vega.it.praksa.repositories.EmployeeRepository;
 import vega.it.praksa.repositories.WorkRepository;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Slf4j
@@ -31,8 +33,12 @@ public class MailingServiceImpl {
     @Scheduled(cron = "0 59 23 ? * SUN")
     // @Scheduled(cron = "0 0/1 * 1/1 * ?")
     public void checkHours() {
+        LocalDate start = LocalDate.now();
+        start = start.minusDays(7);
+        Date date = Date.from(start.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
         workRepository
-                .getEmployeesForMailing(new Date())
+                .getEmployeesForMailing(date)
                 .forEach(
                         id -> {
                             try {

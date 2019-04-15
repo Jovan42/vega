@@ -39,19 +39,6 @@ public class WorkTest {
         Client client1 = new Client(1L, "a", "a", "a", "a", country);
         clientRepository.save(client1);
 
-        Employee employee1 =
-                new Employee(1l, "a", "a", "a", 40d, "a", Role.ADMIN, Status.ACTIVE, null, null);
-        employeeRepository.save(employee1);
-
-        Project project = new Project(1L, "a", "a", client1, employee1, null);
-        projectRepository.save(project);
-
-        Category category = new Category(1L, "y");
-
-        categoryRepository.save(category);
-
-        Work work = new Work(1L, project, category, "a", 5D, 5D, null,new Date());
-        workRepository.save(work);
     }
 
     @Test
@@ -116,7 +103,6 @@ public class WorkTest {
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    // TODO pitaj
     // @Test
     public void remove() throws Exception {
         mockMvc.perform(delete("http://localhost:8080/api/works/2")).andExpect(status().isOk());

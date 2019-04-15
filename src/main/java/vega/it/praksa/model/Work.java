@@ -18,14 +18,6 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Project project;
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Category category;
-
     @Column(nullable = false)
     private String description;
 
@@ -35,9 +27,16 @@ public class Work {
     @Column(nullable = false)
     private Double overtime;
 
-    @ManyToOne
-    private Employee employee;
+    @ManyToOne private Employee employee;
 
     @Temporal(TemporalType.DATE)
     private Date date;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Project project;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Category category;
 }

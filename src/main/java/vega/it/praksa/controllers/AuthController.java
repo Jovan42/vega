@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vega.it.praksa.model.Employee;
-import vega.it.praksa.model.Work;
 import vega.it.praksa.model.dtos.LoginDto;
 import vega.it.praksa.repositories.WorkRepository;
 import vega.it.praksa.services.EmployeeService;
@@ -18,8 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private EmployeeService employeeService;
     @Autowired WorkRepository workRepository;
+    private EmployeeService employeeService;
 
     public AuthController(EmployeeService employeeService) {
         this.employeeService = employeeService;

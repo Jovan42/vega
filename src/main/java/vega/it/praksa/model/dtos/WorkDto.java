@@ -2,6 +2,7 @@ package vega.it.praksa.model.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import vega.it.praksa.model.Employee;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ public class WorkDto {
     @NotBlank private String description;
     @NotNull private Double time;
     @NotNull private Double overtime;
+    @NotNull private EmployeeOutputDto employee;
 
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "CET")

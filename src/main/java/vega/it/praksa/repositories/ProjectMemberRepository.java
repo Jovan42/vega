@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface ProjectMemberRepository extends JpaRepository<ProjectMember, Long> {
     List<ProjectMember> findAllByProject_Id(Long projectId);
-
 }

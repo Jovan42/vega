@@ -17,7 +17,7 @@ public interface WorkRepository extends JpaRepository<Work, Long> {
 
     @Query(
             "select w from Work w where (w.category.id = ?1 or ?1 = null) and (w.project.id = ?2 or ?2 = null)"
-                    + "and (w.project.client.id = ?3 or ?3 = null) and (w.project.lead.id = ?4 or ?4 = null) and "
+                    + "and (w.project.client.id = ?3 or ?3 = null) and (w.employee.id = ?4 or ?4 = null) and "
                     + "(w.date >= ?5 or ?5 = null) and (w.date <= ?6 or ?6 = null)")
     List<Work> search(
             Long categoryId,
@@ -36,4 +36,5 @@ public interface WorkRepository extends JpaRepository<Work, Long> {
             "SELECT w.employee.id FROM Work w WHERE w.date >= ?1 GROUP BY w.employee.id HAVING SUM(time) < 40")
     List<Long> getEmployeesForMailing(@DateTimeFormat(pattern = "yyyy-MM-dd") Date start);
 }
-///SELECT  employee_id, SUM(time) FROM WORK WHERE date >= '2019-5-4'  AND date <  '2019-12-4' GROUP BY employee_id HAVING SUM(time) < 40
+/// SELECT  employee_id, SUM(time) FROM WORK WHERE date >= '2019-5-4'  AND date <  '2019-12-4' GROUP
+// BY employee_id HAVING SUM(time) < 40

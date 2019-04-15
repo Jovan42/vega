@@ -27,13 +27,8 @@ public class EmployeeTest {
     @Before
     public void setUp() {
 
-        Employee employee1 =
-                new Employee(1l, "a", "a", "a", 40d, "a", Role.ADMIN, Status.ACTIVE, null, null);
-        Employee employee2 =
-                new Employee(2l, "b", "b", "b", 40d, "b", Role.WORKER, Status.INACTIVE, null, null);
 
-        employeeRepository.save(employee1);
-        employeeRepository.save(employee2);
+
     }
 
     @Test
@@ -79,7 +74,6 @@ public class EmployeeTest {
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    // TODO pitaj
     // @Test
     public void remove() throws Exception {
         mockMvc.perform(delete("http://localhost:8080/api/team-members/2"))

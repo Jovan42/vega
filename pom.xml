@@ -11,7 +11,7 @@
     <groupId>vega.it</groupId>
     <artifactId>timestamp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>TimeStamp</name>
+    <name>TimeSheet</name>
     <description>Demo projectOutputDto for Spring Boot</description>
 
     <properties>
