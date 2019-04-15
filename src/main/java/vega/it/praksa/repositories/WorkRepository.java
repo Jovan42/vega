@@ -27,14 +27,11 @@ public interface WorkRepository extends JpaRepository<Work, Long> {
             Date startDate,
             Date endDate);
 
-    // @Query("select w from Work w where w.project.lead.id = ?1 and w.date >= ?2 and w.date <=?3")
     List<Work> findAllByProject_LeadAndDateBetween(Employee employeeId, Date start, Date end);
 
     List<Work> findAllByProject_Lead(Employee employeeId);
 
     @Query(
-            "SELECT w.employee.id FROM Work w WHERE w.date >= ?1 GROUP BY w.employee.id HAVING SUM(time) < 40")
-    List<Long> getEmployeesForMailing(@DateTimeFormat(pattern = "yyyy-MM-dd") Date start);
+            "SELECT w.employee.id FROM Work w WHERE w.date >= ?1 and w.date < ?2 GROUP BY w.employee.id HAVING SUM(time) < 40")
+    List<Long> getEmployeesForMailing(Date start, Date end);
 }
-/// SELECT  employee_id, SUM(time) FROM WORK WHERE date >= '2019-5-4'  AND date <  '2019-12-4' GROUP
-// BY employee_id HAVING SUM(time) < 40

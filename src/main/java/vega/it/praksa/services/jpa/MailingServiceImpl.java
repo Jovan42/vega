@@ -29,7 +29,6 @@ public class MailingServiceImpl {
         this.employeeRepository = employeeRepository;
         this.emailSender = emailSender;
     }
-
     @Scheduled(cron = "0 59 23 ? * SUN")
     // @Scheduled(cron = "0 0/1 * 1/1 * ?")
     public void checkHours() {
@@ -38,12 +37,11 @@ public class MailingServiceImpl {
         Date date = Date.from(start.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         workRepository
-                .getEmployeesForMailing(date)
+                .getEmployeesForMailing(date, new Date())
                 .forEach(
                         id -> {
                             try {
                                 sendMail(employeeRepository.findById(id).get());
-
                             } catch (Exception e) {
                                 log.error(e.getMessage());
                             }

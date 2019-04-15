@@ -29,7 +29,7 @@ public class Work {
 
     @ManyToOne private Employee employee;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     @ManyToOne

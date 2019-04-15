@@ -53,6 +53,6 @@ public class AuthController {
 
         System.out.println(date);
         System.out.println(new Date());
-        return workRepository.getEmployeesForMailing(date);
+        return workRepository.getEmployeesForMailing(date, new Date());
     }
 }
