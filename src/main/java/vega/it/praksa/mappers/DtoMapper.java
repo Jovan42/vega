@@ -53,6 +53,10 @@ public interface DtoMapper {
 
     TeamOutputDto teamToTeamOutputDto(Team team);
 
+    Vacation vacationDtoToVacation(VacationInputDto vacationInputDto);
+
+    VacationOutputDto vacationToVacationOutputDto(Vacation vacation);
+
     @Named("longToCountry")
     default Country longToCountry(Long id, @Context CountryRepository countryRepository) {
         return countryRepository.findById(id).get();

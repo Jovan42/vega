@@ -5,19 +5,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vega.it.praksa.model.Employee;
+import vega.it.praksa.model.Vacation;
 import vega.it.praksa.model.dtos.LoginDto;
-import vega.it.praksa.repositories.WorkRepository;
+import vega.it.praksa.repositories.EmployeeRepository;
+import vega.it.praksa.repositories.TeamRepository;
+import vega.it.praksa.repositories.VacationRepository;
 import vega.it.praksa.services.EmployeeService;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired WorkRepository workRepository;
+    @Autowired VacationRepository vacationRepository;
+    @Autowired EmployeeRepository employeeRepository;
+    @Autowired TeamRepository teamRepository;
     private EmployeeService employeeService;
 
     public AuthController(EmployeeService employeeService) {
@@ -46,13 +48,7 @@ public class AuthController {
     }
 
     @GetMapping("/test")
-    List<Long> test() {
-        LocalDate start = LocalDate.now();
-        start = start.minusDays(7);
-        Date date = Date.from(start.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        System.out.println(date);
-        System.out.println(new Date());
-        return workRepository.getEmployeesForMailing(date, new Date());
+    List<Vacation> test() {
+        return null;
     }
 }

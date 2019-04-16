@@ -14,5 +14,6 @@ import java.util.List;
 public class TeamOutputDto {
     private Long id;
     private String name;
+    private EmployeeOutputDto teamLeader;
     private List<EmployeeOutputDto> employees;
 }

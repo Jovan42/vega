@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import vega.it.praksa.model.Employee;
+import vega.it.praksa.model.Vacation;
 import vega.it.praksa.repositories.EmployeeRepository;
 import vega.it.praksa.repositories.WorkRepository;
 
@@ -29,6 +30,7 @@ public class MailingServiceImpl {
         this.employeeRepository = employeeRepository;
         this.emailSender = emailSender;
     }
+
     @Scheduled(cron = "0 59 23 ? * SUN")
     // @Scheduled(cron = "0 0/1 * 1/1 * ?")
     public void checkHours() {
@@ -56,5 +58,30 @@ public class MailingServiceImpl {
         message.setSubject("Less then 40hrs of work");
         message.setText("Less then 40hrs of work");
         emailSender.send(message);
+    }
+
+    public void sendMailForVacation(Vacation vacation) {
+        vacation.getEmployee()
+                .getTeams()
+                .forEach(
+                        team -> {
+                            System.out.println(
+                                    "Send mail to " + team.getTeamLeader().getUsername());
+                            SimpleMailMessage message = new SimpleMailMessage();
+                            message.setTo("jovan0042@gmail.com");
+                            // message.setTo( team.getTeamLeader().getEmail());
+                            message.setSubject("Vacation mail");
+                            message.setText(
+                                    "Employee "
+                                            + vacation.getEmployee().getName()
+                                            + " wants to go to vacation from\n"
+                                            + vacation.getStartDate()
+                                            + " to \n"
+                                            + vacation.getEndDate()
+                                            + "\nTo approve or deny go to link: "
+                                            + "http://localhost:8080/vacation?vacation="
+                                            + vacation.getId());
+                            emailSender.send(message);
+                        });
     }
 }

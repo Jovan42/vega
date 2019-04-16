@@ -2,8 +2,6 @@ package vega.it.praksa.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.format.annotation.DateTimeFormat;
-import vega.it.praksa.model.Employee;
 import vega.it.praksa.model.Work;
 
 import java.util.Date;
@@ -27,11 +25,10 @@ public interface WorkRepository extends JpaRepository<Work, Long> {
             Date startDate,
             Date endDate);
 
-    List<Work> findAllByProject_LeadAndDateBetween(Employee employeeId, Date start, Date end);
 
-    List<Work> findAllByProject_Lead(Employee employeeId);
 
     @Query(
             "SELECT w.employee.id FROM Work w WHERE w.date >= ?1 and w.date < ?2 GROUP BY w.employee.id HAVING SUM(time) < 40")
     List<Long> getEmployeesForMailing(Date start, Date end);
+
 }

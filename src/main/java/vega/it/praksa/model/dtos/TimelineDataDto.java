@@ -5,15 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Date;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class TeamInputDto {
-    private Long id;
-    private String name;
-    private Long teamLeader;
-    private List<Long> employees;
+@AllArgsConstructor
+public class TimelineDataDto {
+    private Date startDate;
+    private Date endDate;
+    private Long employeeId;
 }

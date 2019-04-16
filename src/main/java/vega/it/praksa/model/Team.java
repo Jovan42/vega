@@ -19,6 +19,9 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Employee teamLeader;
+
     @NotBlank private String name;
     @ManyToMany private List<Employee> employees;
 }

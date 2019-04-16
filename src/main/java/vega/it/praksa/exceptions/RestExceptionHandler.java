@@ -18,4 +18,9 @@ public class RestExceptionHandler {
     public ResponseEntity<ErrorMessages> processNotFoundException(NotFoundException ex) {
         return new ResponseEntity<>(ex.getErrorMessages(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorMessages> processUnauthorizedException(UnauthorizedException ex) {
+        return new ResponseEntity<>(ex.getErrorMessages(), HttpStatus.UNAUTHORIZED);
+    }
 }
