@@ -2,7 +2,6 @@ package vega.it.praksa.model.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import vega.it.praksa.model.Employee;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

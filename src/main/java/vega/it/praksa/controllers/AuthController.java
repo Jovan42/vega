@@ -1,15 +1,11 @@
 package vega.it.praksa.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vega.it.praksa.model.Employee;
 import vega.it.praksa.model.Vacation;
 import vega.it.praksa.model.dtos.LoginDto;
-import vega.it.praksa.repositories.EmployeeRepository;
-import vega.it.praksa.repositories.TeamRepository;
-import vega.it.praksa.repositories.VacationRepository;
 import vega.it.praksa.services.EmployeeService;
 
 import java.util.List;
@@ -17,9 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    @Autowired VacationRepository vacationRepository;
-    @Autowired EmployeeRepository employeeRepository;
-    @Autowired TeamRepository teamRepository;
     private EmployeeService employeeService;
 
     public AuthController(EmployeeService employeeService) {

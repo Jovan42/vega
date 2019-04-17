@@ -85,8 +85,24 @@ public class TeamServiceImpl implements TeamService {
                                 () ->
                                         new NotFoundException(
                                                 "Team with id '" + id + "' is not found"));
-        if (!team.getEmployees().contains(employeeRepository.findById(employeeId).get()))
-            team.getEmployees().add(employeeRepository.findById(employeeId).get());
+        if (!team.getEmployees()
+                .contains(
+                        employeeRepository
+                                .findById(employeeId)
+                                .orElseThrow(
+                                        () ->
+                                                new NotFoundException(
+                                                        "Team with id '" + id + "' is not found"))))
+            team.getEmployees()
+                    .add(
+                            employeeRepository
+                                    .findById(employeeId)
+                                    .orElseThrow(
+                                            () ->
+                                                    new NotFoundException(
+                                                            "Team with id '"
+                                                                    + id
+                                                                    + "' is not found")));
         teamRepository.save(team);
     }
 
@@ -100,7 +116,14 @@ public class TeamServiceImpl implements TeamService {
                                         new NotFoundException(
                                                 "Team with id '" + id + "' is not found"));
 
-        team.getEmployees().remove(employeeRepository.findById(employeeId).get());
+        team.getEmployees()
+                .remove(
+                        employeeRepository
+                                .findById(employeeId)
+                                .orElseThrow(
+                                        () ->
+                                                new NotFoundException(
+                                                        "Team with id '" + id + "' is not found")));
         teamRepository.save(team);
     }
 }

@@ -10,6 +10,8 @@ public interface VacationService
         extends GenericService<VacationInputDto, VacationOutputDto, VacationListDto, Long> {
 
     void approve(Long vacationId);
+
     void deny(Long vacationId);
+
     VacationListDto findForEmployeeBetweenDates(Long employeeId, Date starDate, Date endDate);
 }

@@ -85,21 +85,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Boolean changePassword(Long id, String newPassword) {
-        Employee employee =
-                employeeRepository
-                        .findById(id)
-                        .orElseThrow(
-                                () ->
-                                        new NotFoundException(
-                                                "Team member with id '" + id + "' is not found"));
-        employee.setPassword(passwordEncoder.encode(newPassword));
-
-        employeeRepository.save(employee);
-        return true;
-    }
-
-    @Override
     public EmployeeOutputDto get(String username) {
         return employeeRepository
                 .getByUsername(username)

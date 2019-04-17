@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import vega.it.praksa.exceptions.NotFoundException;
-import vega.it.praksa.mappers.DtoMapper;
 import vega.it.praksa.model.Employee;
 import vega.it.praksa.model.UserDetailsImpl;
 import vega.it.praksa.repositories.EmployeeRepository;
@@ -13,11 +12,9 @@ import vega.it.praksa.repositories.EmployeeRepository;
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
     private EmployeeRepository employeeRepository;
-    private DtoMapper mapper;
 
-    public UserDetailsServiceImpl(EmployeeRepository employeeRepository, DtoMapper mapper) {
+    public UserDetailsServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        this.mapper = mapper;
     }
 
     @Override
@@ -32,7 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                                                         + username
                                                         + "' is not found"));
 
-        UserDetailsImpl userDetail = new UserDetailsImpl(employee);
-        return userDetail;
+        return new UserDetailsImpl(employee);
     }
 }

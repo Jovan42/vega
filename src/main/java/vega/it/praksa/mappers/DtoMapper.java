@@ -4,6 +4,7 @@ import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import vega.it.praksa.exceptions.NotFoundException;
 import vega.it.praksa.model.*;
 import vega.it.praksa.model.dtos.*;
 import vega.it.praksa.repositories.*;
@@ -59,32 +60,50 @@ public interface DtoMapper {
 
     @Named("longToCountry")
     default Country longToCountry(Long id, @Context CountryRepository countryRepository) {
-        return countryRepository.findById(id).get();
+        return countryRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new NotFoundException("Country with id '" + id + "' is not found"));
     }
 
     @Named("longToClient")
     default Client longToClient(Long id, @Context ClientRepository clientRepository) {
-        return clientRepository.findById(id).get();
+        return clientRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new NotFoundException("Client with id '" + id + "' is not found"));
     }
 
     @Named("longToCountry")
     default Employee longToTeammember(Long id, @Context EmployeeRepository employeeRepository) {
-        return employeeRepository.findById(id).get();
+        return employeeRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new NotFoundException("Employee with id '" + id + "' is not found"));
     }
 
     @Named("longToCategory")
     default Category longToCategory(Long id, @Context CategoryRepository categoryRepository) {
-        return categoryRepository.findById(id).get();
+        return categoryRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new NotFoundException("Category with id '" + id + "' is not found"));
     }
 
     @Named("longToProject")
     default Project longToProject(Long id, @Context ProjectRepository projectRepository) {
-        return projectRepository.findById(id).get();
+        return projectRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new NotFoundException("Project with id '" + id + "' is not found"));
     }
 
     @Named("longToEmployee")
     default Employee longToEmployee(Long id, @Context EmployeeRepository employeeRepository) {
-        return employeeRepository.findById(id).get();
+        return employeeRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new NotFoundException("Employee with id '" + id + "' is not found"));
     }
 
     @Named("projectToString")

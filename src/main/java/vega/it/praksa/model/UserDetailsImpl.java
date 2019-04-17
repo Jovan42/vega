@@ -31,6 +31,7 @@ public class UserDetailsImpl implements UserDetails {
         return authorities;
     }
 
+    @SuppressWarnings("unused")
     public boolean isAdmin() {
         return employee.getRole().equals(Role.ADMIN);
     }

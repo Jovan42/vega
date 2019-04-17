@@ -21,8 +21,4 @@ public class UnauthorizedException extends RuntimeException {
         msgs.add(msg);
         this.errorMessages = new ErrorMessages(401, "Unauthorized", msgs);
     }
-
-    public UnauthorizedException(List<String> msgs) {
-        this.errorMessages = new ErrorMessages(401, "Unauthorized", msgs);
-    }
 }

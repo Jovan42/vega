@@ -5,6 +5,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import vega.it.praksa.exceptions.NotFoundException;
 import vega.it.praksa.model.Employee;
 import vega.it.praksa.model.Vacation;
 import vega.it.praksa.repositories.EmployeeRepository;
@@ -43,7 +44,15 @@ public class MailingServiceImpl {
                 .forEach(
                         id -> {
                             try {
-                                sendMail(employeeRepository.findById(id).get());
+                                sendMail(
+                                        employeeRepository
+                                                .findById(id)
+                                                .orElseThrow(
+                                                        () ->
+                                                                new NotFoundException(
+                                                                        "Employee with id '"
+                                                                                + id
+                                                                                + "' is not found")));
                             } catch (Exception e) {
                                 log.error(e.getMessage());
                             }
@@ -60,7 +69,7 @@ public class MailingServiceImpl {
         emailSender.send(message);
     }
 
-    public void sendMailForVacation(Vacation vacation) {
+    void sendMailForVacation(Vacation vacation) {
         vacation.getEmployee()
                 .getTeams()
                 .forEach(

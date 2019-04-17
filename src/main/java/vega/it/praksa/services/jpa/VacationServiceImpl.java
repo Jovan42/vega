@@ -69,7 +69,15 @@ public class VacationServiceImpl implements VacationService {
     public VacationOutputDto add(VacationInputDto vacationInputDto) {
         vacationInputDto.setId(null);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Employee employee = employeeRepository.getByUsername(auth.getName()).get();
+        Employee employee =
+                employeeRepository
+                        .getByUsername(auth.getName())
+                        .orElseThrow(
+                                () ->
+                                        new NotFoundException(
+                                                "Team member with username '"
+                                                        + auth.getName()
+                                                        + "' is not found"));
         vacationInputDto.setEmployee(employee.getId());
 
         Vacation vacation = vacationRepository.save(mapper.vacationDtoToVacation(vacationInputDto));
@@ -140,6 +148,7 @@ public class VacationServiceImpl implements VacationService {
                         .collect(Collectors.toList()));
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean checkAuthority(Vacation vacation) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 

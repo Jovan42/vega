@@ -19,9 +19,4 @@ public class EmployeeInputDto {
     @NotBlank private String email;
     @NotNull private Role role;
     @NotNull private Status status;
-
-    public EmployeeInputDto setEmptyPassword() {
-        setPassword("");
-        return this;
-    }
 }

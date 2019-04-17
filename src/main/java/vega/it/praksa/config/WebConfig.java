@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.ResourceResolver;
 import org.springframework.web.servlet.resource.ResourceResolverChain;
 
@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         ResourceResolver resolver = new ReactResourceResolver();
@@ -53,7 +53,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 List<? extends Resource> locations,
                 ResourceResolverChain chain) {
 
-            return resolve(requestPath, locations);
+            return resolve(requestPath);
         }
 
         @Override
@@ -62,7 +62,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 List<? extends Resource> locations,
                 ResourceResolverChain chain) {
 
-            Resource resolvedResource = resolve(resourcePath, locations);
+            Resource resolvedResource = resolve(resourcePath);
             if (resolvedResource == null) {
                 return null;
             }
@@ -73,7 +73,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             }
         }
 
-        private Resource resolve(String requestPath, List<? extends Resource> locations) {
+        private Resource resolve(String requestPath) {
 
             if (requestPath == null) return null;
 

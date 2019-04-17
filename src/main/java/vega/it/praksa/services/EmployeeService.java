@@ -6,7 +6,6 @@ import vega.it.praksa.model.dtos.EmployeeOutputDto;
 
 public interface EmployeeService
         extends GenericService<EmployeeInputDto, EmployeeOutputDto, EmployeeListDto, Long> {
-    Boolean changePassword(Long id, String newPassword);
 
     EmployeeOutputDto get(String username);
 

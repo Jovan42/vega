@@ -25,10 +25,7 @@ public interface WorkRepository extends JpaRepository<Work, Long> {
             Date startDate,
             Date endDate);
 
-
-
     @Query(
             "SELECT w.employee.id FROM Work w WHERE w.date >= ?1 and w.date < ?2 GROUP BY w.employee.id HAVING SUM(time) < 40")
     List<Long> getEmployeesForMailing(Date start, Date end);
-
 }

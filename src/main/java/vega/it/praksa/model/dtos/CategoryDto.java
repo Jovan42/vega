@@ -1,11 +1,13 @@
 package vega.it.praksa.model.dtos;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class CategoryDto {
     private Long id;

@@ -5,7 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import vega.it.praksa.model.dtos.TimelineDataDto;
 import vega.it.praksa.model.dtos.VacationInputDto;
 import vega.it.praksa.model.dtos.VacationListDto;
 import vega.it.praksa.model.dtos.VacationOutputDto;
@@ -38,10 +37,11 @@ public class VacationController
     }
 
     @GetMapping("/for-timeline")
-    public ResponseEntity<VacationListDto> getForTimeline( @PathParam("employee") Long employee,
-                                                           @PathParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                                           @PathParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate){
-        return  new ResponseEntity<>(service.findForEmployeeBetweenDates(employee, startDate, endDate), HttpStatus.OK);
-
+    public ResponseEntity<VacationListDto> getForTimeline(
+            @PathParam("employee") Long employee,
+            @PathParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @PathParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        return new ResponseEntity<>(
+                service.findForEmployeeBetweenDates(employee, startDate, endDate), HttpStatus.OK);
     }
 }

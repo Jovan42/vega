@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProjectMemberServiceImpl implements ProjectMemberService {
-    ProjectMemberRepository projectMemberRepository;
-    DtoMapper mapper;
+    private ProjectMemberRepository projectMemberRepository;
+    private DtoMapper mapper;
 
     public ProjectMemberServiceImpl(
             ProjectMemberRepository projectMemberRepository, DtoMapper mapper) {

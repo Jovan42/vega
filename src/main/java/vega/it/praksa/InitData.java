@@ -1,44 +1,37 @@
 package vega.it.praksa;
 
 import org.springframework.boot.CommandLineRunner;
-import vega.it.praksa.model.dtos.CategoryDto;
-import vega.it.praksa.model.dtos.CountryDto;
-import vega.it.praksa.model.dtos.EmployeeInputDto;
+import org.springframework.stereotype.Component;
+import vega.it.praksa.model.*;
 import vega.it.praksa.model.enums.Role;
 import vega.it.praksa.model.enums.Status;
-import vega.it.praksa.services.*;
+import vega.it.praksa.repositories.*;
 
+@Component
 public class InitData implements CommandLineRunner {
-    private EmployeeService employeeService;
-    private CountryService countryService;
-    private CategoryService categoryService;
-    private ProjectService projectService;
-    private ClientService clientService;
+    private EmployeeRepository employeeRepository;
+    private CountryRepository countryRepository;
+    private CategoryRepository categoryRepository;
+    private ClientRepository clientRepository;
+    private ProjectRepository projectRepository;
 
     public InitData(
-            EmployeeService employeeService,
-            CountryService countryService,
-            CategoryService categoryService,
-            ProjectService projectService,
-            ClientService clientService) {
-        this.employeeService = employeeService;
-        this.countryService = countryService;
-        this.categoryService = categoryService;
-        this.projectService = projectService;
-        this.clientService = clientService;
+            EmployeeRepository employeeRepository,
+            CountryRepository countryRepository,
+            CategoryRepository categoryRepository,
+            ClientRepository clientRepository,
+            ProjectRepository projectRepository) {
+        this.employeeRepository = employeeRepository;
+        this.countryRepository = countryRepository;
+        this.categoryRepository = categoryRepository;
+        this.clientRepository = clientRepository;
+        this.projectRepository = projectRepository;
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        addEmployees();
-        addCountries();
-        addCategories();
-        // addProjects();
-    }
-
-    private void addEmployees() {
-        EmployeeInputDto employee1 =
-                EmployeeInputDto.builder()
+    public void run(String... args) {
+        Employee employee1 =
+                Employee.builder()
                         .email("markomarkovic@gmail.com")
                         .hoursPerWeek(40D)
                         .name("Marko Markovic")
@@ -47,8 +40,8 @@ public class InitData implements CommandLineRunner {
                         .status(Status.ACTIVE)
                         .username("marko")
                         .build();
-        EmployeeInputDto employee2 =
-                EmployeeInputDto.builder()
+        Employee employee2 =
+                Employee.builder()
                         .email("petarpetrovic@gmail.com")
                         .hoursPerWeek(40D)
                         .name("Petar Petrovic")
@@ -57,8 +50,8 @@ public class InitData implements CommandLineRunner {
                         .status(Status.ACTIVE)
                         .username("petar")
                         .build();
-        EmployeeInputDto employee3 =
-                EmployeeInputDto.builder()
+        Employee employee3 =
+                Employee.builder()
                         .email("jovanjovanovic@gmail.com")
                         .hoursPerWeek(40D)
                         .name("Jovan Jovanovic")
@@ -67,27 +60,62 @@ public class InitData implements CommandLineRunner {
                         .status(Status.ACTIVE)
                         .username("jovan")
                         .build();
-        employeeService.add(employee1);
-        employeeService.add(employee2);
-        employeeService.add(employee3);
-    }
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+        employeeRepository.save(employee3);
 
-    private void addCountries() {
-        CountryDto country1 = CountryDto.builder().name("SRB").build();
-        CountryDto country2 = CountryDto.builder().name("USA").build();
+        Category category1 = Category.builder().name("Frontend").build();
+        Category category2 = Category.builder().name("Backend").build();
 
-        countryService.add(country1);
-        countryService.add(country2);
-    }
+        categoryRepository.save(category1);
+        categoryRepository.save(category2);
 
-    private void addCategories() {
-        CategoryDto country1 = CategoryDto.builder().name("Frontend").build();
-        CategoryDto country2 = CategoryDto.builder().name("Backend").build();
+        Country country1 = Country.builder().name("SRB").build();
+        Country country2 = Country.builder().name("USA").build();
 
-        categoryService.add(country1);
-        categoryService.add(country2);
+        country1 = countryRepository.save(country1);
+        country2 = countryRepository.save(country2);
+
+        Client client1 =
+                Client.builder()
+                        .address("59 E. Bayport Ave")
+                        .city("Voorhees")
+                        .country(country1)
+                        .name("Petar Petrovic")
+                        .zipCode("08043")
+                        .build();
+
+        Client client2 =
+                Client.builder()
+                        .address("305 Constitution Rd.")
+                        .city("Winter Park")
+                        .country(country1)
+                        .name("Ivan Ivanovic")
+                        .zipCode("32792")
+                        .build();
+
+        clientRepository.save(client1);
+        clientRepository.save(client2);
+
+        Project project1 =
+                Project.builder()
+                        .client(client1)
+                        .lead(employee1)
+                        .description("Description")
+                        .name("Name")
+                        .id(1L)
+                        .build();
+
+        Project project2 =
+                Project.builder()
+                        .client(client2)
+                        .lead(employee2)
+                        .description("Description")
+                        .name("Name")
+                        .id(2L)
+                        .build();
+
+        projectRepository.save(project1);
+        projectRepository.save(project2);
     }
 }
-
-    // SELECT employee_id , SUM (time)  FROM WORK w WHERE w.date <   '2019-12-4' AND w.date >
-    // '2019-5-4'  GROUP BY employee_id HAVING SUM(time) < 40;
