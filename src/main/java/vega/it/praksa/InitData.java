@@ -1,49 +1,63 @@
 package vega.it.praksa;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import vega.it.praksa.model.*;
 import vega.it.praksa.model.enums.Role;
 import vega.it.praksa.model.enums.Status;
 import vega.it.praksa.repositories.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
 public class InitData implements CommandLineRunner {
+    private PasswordEncoder passwordEncoder;
+
     private EmployeeRepository employeeRepository;
     private CountryRepository countryRepository;
     private CategoryRepository categoryRepository;
     private ClientRepository clientRepository;
     private ProjectRepository projectRepository;
     private WorkRepository workRepository;
+    private VacationRepository vacationRepository;
     private ProjectMemberRepository projectMemberRepository;
+    private TeamRepository teamRepository;
 
+    @Autowired
     public InitData(
+            PasswordEncoder passwordEncoder,
             EmployeeRepository employeeRepository,
             CountryRepository countryRepository,
             CategoryRepository categoryRepository,
             ClientRepository clientRepository,
             ProjectRepository projectRepository,
             WorkRepository workRepository,
-            ProjectMemberRepository projectMemberRepository) {
+            VacationRepository vacationRepository,
+            ProjectMemberRepository projectMemberRepository,
+            TeamRepository teamRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.employeeRepository = employeeRepository;
         this.countryRepository = countryRepository;
         this.categoryRepository = categoryRepository;
         this.clientRepository = clientRepository;
         this.projectRepository = projectRepository;
         this.workRepository = workRepository;
+        this.vacationRepository = vacationRepository;
         this.projectMemberRepository = projectMemberRepository;
+        this.teamRepository = teamRepository;
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws Exception {
         Employee employee1 =
                 Employee.builder()
                         .email("markomarkovic@gmail.com")
                         .hoursPerWeek(40D)
                         .name("Marko Markovic")
-                        .password("password")
+                        .password(passwordEncoder.encode("password"))
                         .role(Role.ADMIN)
                         .status(Status.ACTIVE)
                         .username("marko")
@@ -53,7 +67,7 @@ public class InitData implements CommandLineRunner {
                         .email("petarpetrovic@gmail.com")
                         .hoursPerWeek(40D)
                         .name("Petar Petrovic")
-                        .password("password")
+                        .password(passwordEncoder.encode("password"))
                         .role(Role.ADMIN)
                         .status(Status.ACTIVE)
                         .username("petar")
@@ -63,7 +77,7 @@ public class InitData implements CommandLineRunner {
                         .email("jovanjovanovic@gmail.com")
                         .hoursPerWeek(40D)
                         .name("Jovan Jovanovic")
-                        .password("password")
+                        .password(passwordEncoder.encode("password"))
                         .role(Role.ADMIN)
                         .status(Status.ACTIVE)
                         .username("jovan")
@@ -170,5 +184,32 @@ public class InitData implements CommandLineRunner {
 
         projectMemberRepository.save(projectMember1);
         projectMemberRepository.save(projectMember2);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date start = simpleDateFormat.parse("2019-04-17");
+        Date end = simpleDateFormat.parse("2019-04-20");
+        Vacation vacation1 =
+                Vacation.builder()
+                        .approved(null)
+                        .employee(employee1)
+                        .startDate(start)
+                        .endDate(end)
+                        .build();
+        Vacation vacation2 =
+                Vacation.builder()
+                        .approved(null)
+                        .employee(employee3)
+                        .startDate(start)
+                        .endDate(end)
+                        .build();
+
+        vacationRepository.save(vacation1);
+        vacationRepository.save(vacation2);
+
+        Team team1 = Team.builder().teamLeader(employee1).id(1L).name("Team 1").build();
+        Team team2 = Team.builder().teamLeader(employee3).id(2L).name("Team 2").build();
+
+        teamRepository.save(team1);
+        teamRepository.save(team2);
     }
 }

@@ -15,13 +15,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProjectMemberTest {
+public class VacationTest {
     private MockMvc mockMvc;
 
     @Test
     public void findAll() throws Exception {
         mockMvc.perform(
-                        get("http://localhost:8080/api/project-members")
+                        get("http://localhost:8080/api/vacations")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -31,38 +31,37 @@ public class ProjectMemberTest {
     public void findById() throws Exception {
 
         mockMvc.perform(
-                        get("http://localhost:8080/api/project-members/1")
+                        get("http://localhost:8080/api/vacations/1")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
     public void add() throws Exception {
         mockMvc.perform(
-                        post("http://localhost:8080/api/project-members")
+                        post("http://localhost:8080/api/vacations")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
-                                        "{\"id\":3,\"dailyAllocation\" :40,\"project\":1,\"employee\":3}")
+                                        "{\"id\":3,\"startDate\":\"2019-04-17\",\"endDate\":\"2019-04-17\",\"employee\":2}")
                                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isNotFound());
     }
 
     @Test
     public void edit() throws Exception {
-
         mockMvc.perform(
-                        put("http://localhost:8080/api/project-members")
+                        put("http://localhost:8080/api/vacations")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
-                                        "{\"id\":3,\"dailyAllocation\" :30,\"project\":1,\"employee\":3}")
+                                        "{\"id\":3,\"startDate\":\"2019-04-17\",\"endDate\":\"2019-04-17\",\"employee\":2}")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void remove() throws Exception {
-        mockMvc.perform(delete("http://localhost:8080/api/project-members/2"))
+        mockMvc.perform(delete("http://localhost:8080/api/vacations/2"))
                 .andExpect(status().isOk());
     }
 
