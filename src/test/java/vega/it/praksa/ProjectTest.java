@@ -11,14 +11,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import vega.it.praksa.model.Client;
 import vega.it.praksa.model.Country;
-import vega.it.praksa.model.Employee;
-import vega.it.praksa.model.Project;
-import vega.it.praksa.model.enums.Role;
-import vega.it.praksa.model.enums.Status;
 import vega.it.praksa.repositories.ClientRepository;
 import vega.it.praksa.repositories.CountryRepository;
-import vega.it.praksa.repositories.EmployeeRepository;
-import vega.it.praksa.repositories.ProjectRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,8 +24,6 @@ public class ProjectTest {
     private MockMvc mockMvc;
     private ClientRepository clientRepository;
     private CountryRepository countryRepository;
-    private EmployeeRepository employeeRepository;
-    private ProjectRepository projectRepository;
 
     @Before
     public void setUp() {
@@ -40,8 +32,6 @@ public class ProjectTest {
 
         Client client1 = new Client(1L, "a", "a", "a", "a", country);
         clientRepository.save(client1);
-
-
     }
 
     @Test
@@ -64,12 +54,22 @@ public class ProjectTest {
     }
 
     @Test
+    public void findMembers() throws Exception {
+
+        mockMvc.perform(
+                get("http://localhost:8080/api/projects/1/members")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void add() throws Exception {
         mockMvc.perform(
                         post("http://localhost:8080/api/projects")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
-                                        "{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"client\":1,\"lead\":1}")
+                                        "{\"id\":1,\"name\":\"c\",\"description\":\"c\",\"client\":1,\"lead\":1}")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -81,7 +81,7 @@ public class ProjectTest {
                         put("http://localhost:8080/api/projects")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
-                                        "{\"id\":2,\"name\":\"editC\",\"description\":\"c\",\"client\":1,\"lead\":1}")
+                                        "{\"id\":1,\"name\":\"editC\",\"description\":\"c\",\"client\":1,\"lead\":1}")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -104,7 +104,7 @@ public class ProjectTest {
                 .andExpect(status().isOk());
     }
 
-    // @Test
+    @Test
     public void remove() throws Exception {
         mockMvc.perform(delete("http://localhost:8080/api/projects/2")).andExpect(status().isOk());
     }
@@ -122,15 +122,5 @@ public class ProjectTest {
     @Autowired
     public void setCountryRepository(CountryRepository countryRepository) {
         this.countryRepository = countryRepository;
-    }
-
-    @Autowired
-    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
-
-    @Autowired
-    public void setProjectRepository(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
     }
 }

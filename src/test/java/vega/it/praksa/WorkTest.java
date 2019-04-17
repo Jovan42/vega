@@ -1,6 +1,5 @@
 package vega.it.praksa;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import vega.it.praksa.model.*;
-import vega.it.praksa.model.enums.Role;
-import vega.it.praksa.model.enums.Status;
-import vega.it.praksa.repositories.*;
-
-import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,22 +17,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class WorkTest {
     private MockMvc mockMvc;
-    private ClientRepository clientRepository;
-    private CountryRepository countryRepository;
-    private EmployeeRepository employeeRepository;
-    private ProjectRepository projectRepository;
-    private CategoryRepository categoryRepository;
-    private WorkRepository workRepository;
-
-    @Before
-    public void setUp() {
-        Country country = new Country(1L, "a");
-        countryRepository.save(country);
-
-        Client client1 = new Client(1L, "a", "a", "a", "a", country);
-        clientRepository.save(client1);
-
-    }
 
     @Test
     public void findAll() throws Exception {
@@ -85,8 +62,8 @@ public class WorkTest {
                         post("http://localhost:8080/api/works")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
-                                        "{\"id\":2,\"name\":\"c\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,\""
-                                                + "overtime\": 20,\"project\":1,\"category\":1}")
+                                        "{\"id\":3,\"name\":\"c\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,\""
+                                                + "overtime\": 20,\"project\":1,\"category\":1,\"employee\":1}")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -98,12 +75,13 @@ public class WorkTest {
                         put("http://localhost:8080/api/works")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
-                                        "{\"id\":2,\"name\":\"cEdit\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,"
-                                                + "\"overtime\": 20,\"project\":1,\"category\":1}")
+                                        "{\"id\":3,\"name\":\"cEdit\",\"description\":\"c\",\"date\" :\"2015-05-05\",\"time\" :40,"
+                                                + "\"overtime\": 20,\"project\":1,\"category\":1,\"employee\":1}")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    // @Test
+
+    @Test
     public void remove() throws Exception {
         mockMvc.perform(delete("http://localhost:8080/api/works/2")).andExpect(status().isOk());
     }
@@ -111,35 +89,5 @@ public class WorkTest {
     @Autowired
     public void setMockMvc(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
-    }
-
-    @Autowired
-    public void setClientRepository(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
-
-    @Autowired
-    public void setCountryRepository(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
-    }
-
-    @Autowired
-    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
-
-    @Autowired
-    public void setProjectRepository(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
-
-    @Autowired
-    public void setCategoryRepository(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
-
-    @Autowired
-    public void setWorkRepository(WorkRepository workRepository) {
-        this.workRepository = workRepository;
     }
 }

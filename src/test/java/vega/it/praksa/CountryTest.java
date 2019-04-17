@@ -1,6 +1,5 @@
 package vega.it.praksa;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import vega.it.praksa.model.Country;
-import vega.it.praksa.repositories.ClientRepository;
 import vega.it.praksa.repositories.CountryRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -21,17 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class CountryTest {
     private MockMvc mockMvc;
-    private ClientRepository clientRepository;
     private CountryRepository countryRepository;
-
-    @Before
-    public void setUp() {
-        Country country1 = new Country(1L, "a");
-        Country country2 = new Country(1L, "a");
-
-        countryRepository.save(country1);
-        countryRepository.save(country2);
-    }
 
     @Test
     public void findAll() throws Exception {
@@ -56,7 +43,7 @@ public class CountryTest {
         mockMvc.perform(
                         post("http://localhost:8080/api/countries")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content("{\"id\":3,\"name\":\"c\"}")
+                                .content("{\"id\":1,\"name\":\"c\"}")
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
@@ -70,7 +57,8 @@ public class CountryTest {
                                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    // @Test
+
+    @Test
     public void remove() throws Exception {
         mockMvc.perform(delete("http://localhost:8080/api/countries/2")).andExpect(status().isOk());
     }
@@ -78,11 +66,6 @@ public class CountryTest {
     @Autowired
     public void setMockMvc(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
-    }
-
-    @Autowired
-    public void setClientRepository(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
     }
 
     @Autowired

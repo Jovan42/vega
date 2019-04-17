@@ -1,14 +1,16 @@
 package vega.it.praksa.model.dtos;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import vega.it.praksa.model.enums.Role;
 import vega.it.praksa.model.enums.Status;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class EmployeeInputDto {
     private Long id;

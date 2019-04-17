@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import vega.it.praksa.model.Client;
-import vega.it.praksa.model.Country;
 import vega.it.praksa.repositories.ClientRepository;
 import vega.it.praksa.repositories.CountryRepository;
 
@@ -23,20 +22,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ClientTest {
     private MockMvc mockMvc;
-    private ClientRepository clientRepository;
-    private CountryRepository countryRepository;
-
-    @Before
-    public void setUp() {
-        Country country = new Country(1L, "a");
-        countryRepository.save(country);
-
-        Client client1 = new Client(1L, "a", "a", "a", "a", country);
-        Client client2 = new Client(2L, "b", "b", "b", "b", country);
-
-        clientRepository.save(client1);
-        clientRepository.save(client2);
-    }
+    @Autowired private ClientRepository clientRepository;
+    @Autowired private CountryRepository countryRepository;
 
     @Test
     public void findAll() throws Exception {
@@ -98,23 +85,15 @@ public class ClientTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
-    // @Test
+
+    @Test
     public void remove() throws Exception {
-        mockMvc.perform(delete("http://localhost:8080/api/clients/2")).andExpect(status().isOk());
+        mockMvc.perform(delete("http://localhost:8080/api/clients/2"))
+                .andExpect(status().isOk());
     }
 
     @Autowired
     public void setMockMvc(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
-    }
-
-    @Autowired
-    public void setClientRepository(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
-
-    @Autowired
-    public void setCountryRepository(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
     }
 }

@@ -7,6 +7,8 @@ import vega.it.praksa.model.enums.Role;
 import vega.it.praksa.model.enums.Status;
 import vega.it.praksa.repositories.*;
 
+import java.util.Date;
+
 @Component
 public class InitData implements CommandLineRunner {
     private EmployeeRepository employeeRepository;
@@ -14,18 +16,24 @@ public class InitData implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     private ClientRepository clientRepository;
     private ProjectRepository projectRepository;
+    private WorkRepository workRepository;
+    private ProjectMemberRepository projectMemberRepository;
 
     public InitData(
             EmployeeRepository employeeRepository,
             CountryRepository countryRepository,
             CategoryRepository categoryRepository,
             ClientRepository clientRepository,
-            ProjectRepository projectRepository) {
+            ProjectRepository projectRepository,
+            WorkRepository workRepository,
+            ProjectMemberRepository projectMemberRepository) {
         this.employeeRepository = employeeRepository;
         this.countryRepository = countryRepository;
         this.categoryRepository = categoryRepository;
         this.clientRepository = clientRepository;
         this.projectRepository = projectRepository;
+        this.workRepository = workRepository;
+        this.projectMemberRepository = projectMemberRepository;
     }
 
     @Override
@@ -74,7 +82,7 @@ public class InitData implements CommandLineRunner {
         Country country2 = Country.builder().name("USA").build();
 
         country1 = countryRepository.save(country1);
-        country2 = countryRepository.save(country2);
+        countryRepository.save(country2);
 
         Client client1 =
                 Client.builder()
@@ -108,8 +116,8 @@ public class InitData implements CommandLineRunner {
 
         Project project2 =
                 Project.builder()
-                        .client(client2)
-                        .lead(employee2)
+                        .client(client1)
+                        .lead(employee1)
                         .description("Description")
                         .name("Name")
                         .id(2L)
@@ -117,5 +125,50 @@ public class InitData implements CommandLineRunner {
 
         projectRepository.save(project1);
         projectRepository.save(project2);
+
+        Work work1 =
+                Work.builder()
+                        .category(category1)
+                        .date(new Date())
+                        .description("Work 1")
+                        .employee(employee1)
+                        .id(1L)
+                        .overtime(0D)
+                        .time(8D)
+                        .project(project1)
+                        .build();
+
+        Work work2 =
+                Work.builder()
+                        .category(category1)
+                        .date(new Date())
+                        .description("Work 2")
+                        .employee(employee1)
+                        .id(2L)
+                        .overtime(0D)
+                        .time(8D)
+                        .project(project1)
+                        .build();
+
+        workRepository.save(work1);
+        workRepository.save(work2);
+
+        ProjectMember projectMember1 =
+                ProjectMember.builder()
+                        .project(project1)
+                        .dailyAllocation(40D)
+                        .employee(employee1)
+                        .id(1L)
+                        .build();
+        ProjectMember projectMember2 =
+                ProjectMember.builder()
+                        .project(project1)
+                        .dailyAllocation(40D)
+                        .employee(employee3)
+                        .id(2L)
+                        .build();
+
+        projectMemberRepository.save(projectMember1);
+        projectMemberRepository.save(projectMember2);
     }
 }
