@@ -39,11 +39,6 @@ public class ProjectController
         return new ResponseEntity<>(service.getByFirstLetter(letter), HttpStatus.OK);
     }
 
-    //@GetMapping("/client")
-    public ResponseEntity<ProjectListDto> getByFirstLetter(@PathParam("clientId") Long clientId) {
-        return new ResponseEntity<>(service.getByClient(clientId), HttpStatus.OK);
-    }
-
     @GetMapping("/{projectId}/members")
     public ResponseEntity<ProjectMemberListDto> getMembers(
             @PathVariable("projectId") Long projectId) {

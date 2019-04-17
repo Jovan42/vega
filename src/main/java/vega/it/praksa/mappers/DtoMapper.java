@@ -16,7 +16,8 @@ import vega.it.praksa.repositories.*;
             EmployeeRepository.class,
             CategoryRepository.class,
             ProjectRepository.class,
-            EmployeeRepository.class
+            EmployeeRepository.class,
+            ProjectMemberRepository.class
         })
 public interface DtoMapper {
 
@@ -101,6 +102,15 @@ public interface DtoMapper {
     @Named("longToEmployee")
     default Employee longToEmployee(Long id, @Context EmployeeRepository employeeRepository) {
         return employeeRepository
+                .findById(id)
+                .orElseThrow(
+                        () -> new NotFoundException("Employee with id '" + id + "' is not found"));
+    }
+
+    @Named("longToProjectMember")
+    default ProjectMember longToProjectMember(
+            Long id, @Context ProjectMemberRepository projectMemberRepository) {
+        return projectMemberRepository
                 .findById(id)
                 .orElseThrow(
                         () -> new NotFoundException("Employee with id '" + id + "' is not found"));

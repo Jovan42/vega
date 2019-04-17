@@ -16,7 +16,6 @@ public class ProjectMemberOutputDto {
     private Long id;
 
     @NotNull private Employee employee;
-
     @NotNull private String project;
     @NotNull private Double dailyAllocation;
 }
