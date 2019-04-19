@@ -1,8 +1,10 @@
 package vega.it.praksa.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,4 +32,8 @@ public class Client {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
     private Country country;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<Project> projects;
 }

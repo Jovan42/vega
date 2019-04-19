@@ -25,15 +25,6 @@ public class ProjectTest {
     private ClientRepository clientRepository;
     private CountryRepository countryRepository;
 
-    @Before
-    public void setUp() {
-        Country country = new Country(1L, "a");
-        countryRepository.save(country);
-
-        Client client1 = new Client(1L, "a", "a", "a", "a", country);
-        clientRepository.save(client1);
-    }
-
     @Test
     public void findAll() throws Exception {
         mockMvc.perform(
